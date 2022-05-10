@@ -104,7 +104,7 @@ const RightSide = styled.div`
     font-size: 24px;
     color: #4231c8;
     padding-top: 8px;
-    margin-right: 30px;
+    margin-right: 20px;
     cursor: pointer;
   }
 `;
