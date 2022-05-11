@@ -38,7 +38,7 @@ function Main() {
         <MainTitle>입출금</MainTitle>
         <MainArticle>
           <LeftSection>
-            <TotalAsset />
+            <TotalAsset list={coinList} />
             <Asset list={coinList} />
           </LeftSection>
           <RightSection>

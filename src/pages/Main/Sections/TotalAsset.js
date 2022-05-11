@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-function TotalAsset() {
+function TotalAsset({ list }) {
+  const [totalAsset, setTotalAsset] = useState('');
+
+  useEffect(() => {
+    const newAsset = [];
+    list.forEach(el => {
+      newAsset.push(el.quantity * el.price);
+    });
+    const totalAsset = newAsset.reduce((prev, curr) => prev + curr, 0);
+    const addComma = totalAsset.toLocaleString();
+    setTotalAsset(addComma);
+  });
+
   return (
     <TotalAssetContainer>
       <h3>총 보유자산</h3>
       <div>
         <span>₩</span>
-        <span>100,000,000</span>
+        <span>{totalAsset}</span>
       </div>
     </TotalAssetContainer>
   );

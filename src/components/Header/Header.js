@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FaPowerOff } from 'react-icons/fa';
+import { FiPower } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
@@ -27,7 +27,7 @@ function Header() {
   };
 
   const goToList = () => {
-    navigate('/list');
+    navigate('/detail');
   };
 
   const logout = () => {
@@ -47,7 +47,7 @@ function Header() {
           {userInfo !== null && <p>{userInfo.email}</p>}
           {userInfo !== null && (
             <button onClick={logout}>
-              <FaPowerOff />
+              <FiPower />
             </button>
           )}
         </RightSide>
