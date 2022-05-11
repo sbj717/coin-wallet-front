@@ -1,5 +1,8 @@
+import React from 'react';
+import styled from 'styled-components';
+
 function Detail() {
-  return <div>hi</div>;
+  return <div>detail</div>;
 }
 
 export default Detail;

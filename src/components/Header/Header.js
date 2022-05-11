@@ -4,18 +4,23 @@ import { FaPowerOff } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
-  const [userInfo, setUserInfo] = useState('');
+  const [userInfo, setUserInfo] = useState(null);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     fetch('/data/user_data.json', {
       method: 'GET',
-      Headers: { 'Content-Type': 'application/json' },
+      Headers: { 'Content-Type': 'application/json', token: token },
     })
       .then(res => res.json())
       .then(res => setUserInfo(res));
-  }, []);
+  }, [token]);
 
   const navigate = useNavigate();
+
+  const goToFirst = () => {
+    token ? navigate('/main') : navigate('/');
+  };
 
   const goToMain = () => {
     navigate('/main');
@@ -27,22 +32,24 @@ function Header() {
 
   const logout = () => {
     setUserInfo('');
-    navigate('/login');
+    navigate('/');
   };
 
   return (
     <HeaderWrapper>
       <HeaderContainer>
         <LeftSide>
-          <img src="images/logo.svg" alt="" onClick={goToMain} />
-          <button onClick={goToMain}>입출금</button>
-          <button onClick={goToList}>입출금 내역</button>
+          <img src="images/logo.svg" alt="" onClick={goToFirst} />
+          {userInfo !== null && <button onClick={goToMain}>입출금</button>}
+          {userInfo !== null && <button onClick={goToList}>입출금 내역</button>}
         </LeftSide>
         <RightSide>
-          <p>{userInfo.email}</p>
-          <button onClick={logout}>
-            <FaPowerOff />
-          </button>
+          {userInfo !== null && <p>{userInfo.email}</p>}
+          {userInfo !== null && (
+            <button onClick={logout}>
+              <FaPowerOff />
+            </button>
+          )}
         </RightSide>
       </HeaderContainer>
     </HeaderWrapper>
