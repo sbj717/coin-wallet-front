@@ -12,7 +12,7 @@ function TotalAsset({ list }) {
     const totalAsset = newAsset.reduce((prev, curr) => prev + curr, 0);
     const addComma = totalAsset.toLocaleString();
     setTotalAsset(addComma);
-  });
+  }, [list]);
 
   return (
     <TotalAssetContainer>

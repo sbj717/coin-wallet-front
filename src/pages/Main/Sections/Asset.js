@@ -3,26 +3,54 @@ import styled from 'styled-components';
 import { BsSearch } from 'react-icons/bs';
 import CoinCard from '../MainComponents/CoinCard';
 
-function Asset({ list }) {
+function Asset({ list, sendId }) {
   const [isMine, setIsMine] = useState('none');
   const [coinId, setCoinId] = useState(0);
   const [clickValue, setClickValue] = useState(true);
+  const [searchWord, setSearchWord] = useState('');
+  const [searchList, setSearchList] = useState([]);
   const [newList, setNewList] = useState([]);
-
-  useEffect(() => {
-    if (isMine === 'none') {
-      list.forEach(el => {
-        el.isSelected = false;
-      });
-      setNewList(list);
-    } else if (isMine === 'mine') {
-      const newList = list.filter(el => el.quantity !== 0);
-      setNewList(newList);
-    }
-  }, [isMine, list]);
 
   const showMyCoin = () => {
     isMine === 'none' ? setIsMine('mine') : setIsMine('none');
+  };
+
+  useEffect(() => {
+    if (isMine === 'none') {
+      const hideIndex = searchList.findIndex(
+        el => el.isSelected === true && el.quantity === 0
+      );
+      const pickIndex = searchList.findIndex(
+        el => el.isSelected === true && el.quantity !== 0
+      );
+      if (
+        hideIndex > -1 &&
+        pickIndex > -1 &&
+        searchList[hideIndex].isSelected &&
+        searchList[pickIndex].isSelected
+      ) {
+        searchList[hideIndex].isSelected = false;
+      }
+      setNewList(searchList);
+    } else if (isMine === 'mine') {
+      const newList = searchList.filter(el => el.quantity !== 0);
+      setNewList(newList);
+    }
+  }, [isMine, searchList]);
+
+  const swInputHandler = e => {
+    setSearchWord(e.target.value);
+  };
+
+  const searchCoin = () => {
+    if (searchWord.length > 0) {
+      const searchedCoin = list.filter(el =>
+        el.coin_name.includes(`${searchWord.toUpperCase()}`)
+      );
+      setSearchList(searchedCoin);
+    } else {
+      setSearchList(list);
+    }
   };
 
   const selectCoin = id => {
@@ -34,9 +62,11 @@ function Asset({ list }) {
       newList[index].isSelected = true;
       setCoinId(id);
       setClickValue(true);
+      sendId(id, true);
     } else {
       setClickValue(!clickValue);
       newList[index].isSelected = !clickValue;
+      !clickValue ? sendId(id, true) : sendId(id, false);
     }
   };
 
@@ -46,8 +76,8 @@ function Asset({ list }) {
         <SearchCoinBar>
           <span>코인 검색</span>
           <SearchInputBox>
-            <input type="text" />
-            <BsSearch />
+            <input type="text" value={searchWord} onChange={swInputHandler} />
+            <BsSearch style={{ cursor: 'pointer' }} onClick={searchCoin} />
           </SearchInputBox>
           <SearchCheckBox>
             <div className={isMine} onClick={showMyCoin} />
@@ -163,25 +193,26 @@ const ListWrapper = styled.div`
 const ListHead = styled.div`
   display: flex;
   flex-direction: row;
-  height: 40px;
+  height: 45px;
   background-color: #f5f5f5;
   border-bottom: 1px dotted gray;
   div {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
+    height: 42px;
     border-right: 2px solid white;
     p {
       font-size: 14px;
       font-weight: 700;
       text-align: center;
+      padding-top: 3px;
     }
   }
 `;
 
 const ListBodyWrapper = styled.div`
   width: 100%;
-  height: 490px;
+  height: 460px;
   overflow-y: auto;
 `;

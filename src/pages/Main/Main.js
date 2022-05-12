@@ -17,7 +17,10 @@ function Main() {
       Headers: { 'Content-Type': 'application/json', token: token },
     })
       .then(res => res.json())
-      .then(res => setCoinList(res));
+      .then(res => {
+        res.forEach(el => (el.isSelected = false));
+        setCoinList(res);
+      });
   }, [token]);
 
   const goToDeposit = () => {
@@ -32,6 +35,13 @@ function Main() {
     setIsPicked(['none', 'none', 'picked']);
   };
 
+  const [coinName, setCoinName] = useState('');
+
+  const sendId = (id, check) => {
+    const coinName = coinList.filter(el => el.id === id)[0].coin_name;
+    check ? setCoinName(coinName) : setCoinName('');
+  };
+
   return (
     <MainWrapper>
       <MainContainer>
@@ -39,10 +49,10 @@ function Main() {
         <MainArticle>
           <LeftSection>
             <TotalAsset list={coinList} />
-            <Asset list={coinList} />
+            <Asset list={coinList} sendId={sendId} />
           </LeftSection>
           <RightSection>
-            <SelectedCoin>BTC 비트코인</SelectedCoin>
+            <SelectedCoin>{coinName}</SelectedCoin>
             <RightSectionNav>
               <span className={isPicked[0]} onClick={goToDeposit}>
                 입금
