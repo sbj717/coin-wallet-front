@@ -19,10 +19,10 @@ function Deposit({ coin }) {
     <DepositWrapper>
       {coin.id !== undefined && (
         <DepositContainer>
-          <PickType>
+          <BlockchainType>
             <span>블록체인 타입 선택</span>
             <span>{coin.blockchain_type}</span>
-          </PickType>
+          </BlockchainType>
           <DepositAddress>
             <span>입금주소</span>
             <div>
@@ -64,7 +64,7 @@ const DepositContainer = styled.div`
   width: 100%;
 `;
 
-const PickType = styled.div`
+const BlockchainType = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 100%;

@@ -67,9 +67,13 @@ function Main() {
                 입출금 내역
               </span>
             </RightSectionNav>
-            {isPicked[0] === 'picked' && <Deposit coin={selectedCoin} />}
-            {isPicked[1] === 'picked' && <Withdraw />}
-            {isPicked[2] === 'picked' && <Detail />}
+            {(isPicked[0] === 'picked' || coinName === '') && (
+              <Deposit coin={selectedCoin} />
+            )}
+            {isPicked[1] === 'picked' && coinName !== '' && (
+              <Withdraw coin={selectedCoin} />
+            )}
+            {isPicked[2] === 'picked' && coinName !== '' && <Detail />}
           </RightSection>
         </MainArticle>
       </MainContainer>
