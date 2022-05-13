@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 function CoinCard({ coin, selectCoin }) {
+  const coinName = coin.coin_name.split(' ');
+  const totalPrice = '₩ ' + (coin.price * coin.quantity).toLocaleString();
+
   return (
     <CoinCardWrapper>
       <CoinCardContainer
@@ -9,7 +12,8 @@ function CoinCard({ coin, selectCoin }) {
         onClick={() => selectCoin(coin.id)}
       >
         <div style={{ width: '20%' }}>
-          <span>{coin.coin_name}</span>
+          <span>{coinName[0]}</span>
+          <span>{coinName[1]}</span>
         </div>
         <div style={{ width: '20%' }}>
           <span>{coin.blockchain_type}</span>
@@ -18,7 +22,7 @@ function CoinCard({ coin, selectCoin }) {
           <span>{coin.quantity}</span>
         </div>
         <div className="number" style={{ width: '30%' }}>
-          <span>{coin.price * coin.quantity}</span>
+          <span>{totalPrice}</span>
         </div>
       </CoinCardContainer>
     </CoinCardWrapper>
@@ -46,17 +50,18 @@ const CoinCardContainer = styled.div`
   position: relative;
   div {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 40px;
+    height: 42px;
     border-bottom: 1px dotted gray;
     span {
       font-size: 14px;
+      padding-top: 2px;
     }
   }
   .number {
-    justify-content: flex-end;
+    align-items: flex-end;
     padding-right: 10px;
   }
 `;

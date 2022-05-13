@@ -1,29 +1,33 @@
 [
   {
     "id": 1,
-    "coin_name": "비트코인",
+    "coin_name": "BTC 비트코인",
     "blockchain_type": "BTC",
+    "deposit_address": "asdawwhjeqjwjkehjqwkeqh",
     "quantity": 1,
     "price": 5000000
   },
   {
     "id": 2,
-    "coin_name": "비트코인",
-    "blockchain_type": "BTC",
+    "coin_name": "ETH 이더리움",
+    "blockchain_type": "AAA",
+    "deposit_address": "asdawwhjxcxvvceqjwjkehjqwkeqh",
     "quantity": 2,
-    "price": 5000000
+    "price": 1000000
   },
   {
     "id": 3,
-    "coin_name": "비트코인",
-    "blockchain_type": "BTC",
+    "coin_name": "DAI 다이",
+    "blockchain_type": "BBB",
+    "deposit_address": "asdawwhjeqjwjkqweqwehjqwkeqh",
     "quantity": 3,
-    "price": 5000000
+    "price": 2000000
   },
   {
     "id": 4,
-    "coin_name": "비트코인",
-    "blockchain_type": "BTC",
+    "coin_name": "PROB 프로비트토큰",
+    "blockchain_type": "CCC",
+    "deposit_address": "asdawwhjeqjwjkehjqwwqrewekeqh",
     "quantity": 4,
     "price": 5000000
   },
@@ -31,6 +35,7 @@
     "id": 5,
     "coin_name": "비트코인",
     "blockchain_type": "BTC",
+    "deposit_address": "asdasdweqweqeeffdgdfgdfg",
     "quantity": 5,
     "price": 5000000
   },

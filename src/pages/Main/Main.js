@@ -9,6 +9,7 @@ import Detail from './Sections/Detail';
 function Main() {
   const [isPicked, setIsPicked] = useState(['picked', 'none', 'none']);
   const [coinList, setCoinList] = useState([]);
+  const [selectedCoin, setSelectedCoin] = useState({});
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -17,7 +18,10 @@ function Main() {
       Headers: { 'Content-Type': 'application/json', token: token },
     })
       .then(res => res.json())
-      .then(res => setCoinList(res));
+      .then(res => {
+        res.forEach(el => (el.isSelected = false));
+        setCoinList(res);
+      });
   }, [token]);
 
   const goToDeposit = () => {
@@ -32,17 +36,26 @@ function Main() {
     setIsPicked(['none', 'none', 'picked']);
   };
 
+  const [coinName, setCoinName] = useState('');
+
+  const sendId = (id, check) => {
+    const coinName = coinList.filter(el => el.id === id)[0].coin_name;
+    check ? setCoinName(coinName) : setCoinName('');
+    const coin = coinList.filter(el => el.id === id)[0];
+    check ? setSelectedCoin(coin) : setSelectedCoin({});
+  };
+
   return (
     <MainWrapper>
       <MainContainer>
         <MainTitle>입출금</MainTitle>
         <MainArticle>
           <LeftSection>
-            <TotalAsset />
-            <Asset list={coinList} />
+            <TotalAsset list={coinList} />
+            <Asset list={coinList} sendId={sendId} />
           </LeftSection>
           <RightSection>
-            <SelectedCoin>BTC 비트코인</SelectedCoin>
+            <SelectedCoin>{coinName}</SelectedCoin>
             <RightSectionNav>
               <span className={isPicked[0]} onClick={goToDeposit}>
                 입금
@@ -54,9 +67,13 @@ function Main() {
                 입출금 내역
               </span>
             </RightSectionNav>
-            {isPicked[0] === 'picked' && <Deposit />}
-            {isPicked[1] === 'picked' && <Withdraw />}
-            {isPicked[2] === 'picked' && <Detail />}
+            {(isPicked[0] === 'picked' || coinName === '') && (
+              <Deposit coin={selectedCoin} />
+            )}
+            {isPicked[1] === 'picked' && coinName !== '' && (
+              <Withdraw coin={selectedCoin} />
+            )}
+            {isPicked[2] === 'picked' && coinName !== '' && <Detail />}
           </RightSection>
         </MainArticle>
       </MainContainer>
