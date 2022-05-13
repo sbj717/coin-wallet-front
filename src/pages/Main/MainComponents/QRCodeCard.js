@@ -1,10 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import { QRCodeSVG } from 'qrcode.react';
 
-function QRCodeCard() {
-  
-
-  return (
-
-  )
+function QRCodeCard({ address }) {
+  return <QRCodeSVG value={address} />;
 }
+
+export default QRCodeCard;

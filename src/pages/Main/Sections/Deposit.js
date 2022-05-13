@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsCardChecklist } from 'react-icons/bs';
+import QRCodeCard from '../MainComponents/QRCodeCard';
 
 function Deposit({ coin }) {
   const [address, setAddress] = useState('');
@@ -31,7 +32,9 @@ function Deposit({ coin }) {
           </DepositAddress>
           <QRCode>
             <p>QR CODE</p>
-            <div>image</div>
+            <div>
+              <QRCodeCard address={address} />
+            </div>
           </QRCode>
         </DepositContainer>
       )}
@@ -128,8 +131,8 @@ const QRCode = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     border: 1px solid #f5f5f5;
   }
 `;
