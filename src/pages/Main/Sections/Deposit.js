@@ -1,31 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsCardChecklist } from 'react-icons/bs';
 
-function Deposit() {
+function Deposit({ coin }) {
+  const [address, setAddress] = useState('');
+
+  useEffect(() => {
+    setAddress(coin.deposit_address);
+  }, [coin.deposit_address]);
+
+  const copyToClipBoard = async () => {
+    await navigator.clipboard.writeText(address);
+    alert('입금주소를 복사했습니다.');
+  };
+
   return (
     <DepositWrapper>
-      <DepositContainer>
-        <PickType>
-          <span>블록체인 타입 선택</span>
-          <span>ERC-20</span>
-        </PickType>
-        <DepositAddress>
-          <span>입금주소</span>
-          <div>
-            <p>1234567890</p>
-            <button>복사</button>
-          </div>
-        </DepositAddress>
-        <QRCode>
-          <p>QR CODE</p>
-          <div>image</div>
-        </QRCode>
-      </DepositContainer>
-      {/* <PickNothing>
-        <BsCardChecklist />
-        <p>왼쪽 표에서 코인을 선택하세요.</p>
-      </PickNothing> */}
+      {coin.id !== undefined && (
+        <DepositContainer>
+          <PickType>
+            <span>블록체인 타입 선택</span>
+            <span>{coin.blockchain_type}</span>
+          </PickType>
+          <DepositAddress>
+            <span>입금주소</span>
+            <div>
+              <p>{coin.deposit_address}</p>
+              <button onClick={copyToClipBoard}>복사</button>
+            </div>
+          </DepositAddress>
+          <QRCode>
+            <p>QR CODE</p>
+            <div>image</div>
+          </QRCode>
+        </DepositContainer>
+      )}
+      {coin.id === undefined && (
+        <PickNothing>
+          <BsCardChecklist />
+          <p>왼쪽 표에서 코인을 선택하세요.</p>
+        </PickNothing>
+      )}
     </DepositWrapper>
   );
 }

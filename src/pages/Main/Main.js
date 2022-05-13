@@ -9,6 +9,7 @@ import Detail from './Sections/Detail';
 function Main() {
   const [isPicked, setIsPicked] = useState(['picked', 'none', 'none']);
   const [coinList, setCoinList] = useState([]);
+  const [selectedCoin, setSelectedCoin] = useState({});
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -40,6 +41,8 @@ function Main() {
   const sendId = (id, check) => {
     const coinName = coinList.filter(el => el.id === id)[0].coin_name;
     check ? setCoinName(coinName) : setCoinName('');
+    const coin = coinList.filter(el => el.id === id)[0];
+    check ? setSelectedCoin(coin) : setSelectedCoin({});
   };
 
   return (
@@ -64,7 +67,7 @@ function Main() {
                 입출금 내역
               </span>
             </RightSectionNav>
-            {isPicked[0] === 'picked' && <Deposit />}
+            {isPicked[0] === 'picked' && <Deposit coin={selectedCoin} />}
             {isPicked[1] === 'picked' && <Withdraw />}
             {isPicked[2] === 'picked' && <Detail />}
           </RightSection>

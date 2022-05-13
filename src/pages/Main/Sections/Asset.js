@@ -16,6 +16,9 @@ function Asset({ list, sendId }) {
   };
 
   useEffect(() => {
+    if (newList.length === 0) {
+      setSearchList(list);
+    }
     if (isMine === 'none') {
       const hideIndex = searchList.findIndex(
         el => el.isSelected === true && el.quantity === 0
@@ -36,14 +39,14 @@ function Asset({ list, sendId }) {
       const newList = searchList.filter(el => el.quantity !== 0);
       setNewList(newList);
     }
-  }, [isMine, searchList]);
+  }, [isMine, list, searchList]);
 
   const swInputHandler = e => {
     setSearchWord(e.target.value);
   };
 
   const searchCoin = () => {
-    if (searchWord.length > 0) {
+    if (searchWord.length !== '') {
       const searchedCoin = list.filter(el =>
         el.coin_name.includes(`${searchWord.toUpperCase()}`)
       );
