@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import DetailSearch from '../Main/Sections/DetailSearch';
 
 function Detail() {
   return (
@@ -7,9 +8,7 @@ function Detail() {
       <DetailContainer>
         <DetailTitle>입출금 내역</DetailTitle>
         <DetailArticle>
-          <DetailSearchBar>
-            <div />
-          </DetailSearchBar>
+          <DetailSearch />
           <DetailTable>
             <TableHead>
               <div />
@@ -55,17 +54,6 @@ const DetailArticle = styled.div`
   border: 1px solid red;
 `;
 
-const DetailSearchBar = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  height: 40px;
-  padding: 0px 20px;
-  margin-bottom: 20px;
-  border: 1px solid blue;
-`;
 const DetailTable = styled.div`
   display: flex;
   flex-direction: column;
