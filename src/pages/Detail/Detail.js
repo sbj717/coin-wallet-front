@@ -36,8 +36,9 @@ function Detail() {
     setSearchWord(name);
   };
 
-  const searchByCondition = conditions => {
+  const searchByCondition = (conditions, searchWordInput) => {
     setSearchCondition(conditions);
+    if (searchWordInput.length === 0) setSearchWord('');
   };
 
   const sortOnGoing = check => {

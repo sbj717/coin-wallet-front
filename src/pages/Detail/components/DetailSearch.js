@@ -34,6 +34,7 @@ function DetailSearch({
   const [forCSV, setForCSV] = useState([]);
   const [onGoing, setOnGoing] = useState('none');
   const token = localStorage.getItem('token');
+
   const searchWordInputHandler = e => {
     setSearchWordInput(e.target.value);
   };
@@ -46,7 +47,7 @@ function DetailSearch({
       `${endDate.getFullYear()}/${endDate.getMonth() + 1}/${endDate.getDate()}`,
       dealType,
     ];
-    searchByCondition(newCondition);
+    searchByCondition(newCondition, searchWordInput);
   };
 
   const selectDeposit = () => {
@@ -66,7 +67,6 @@ function DetailSearch({
 
   const resetDetail = () => {
     setSearchWordInput('');
-    searchByCoinName('');
     setStartDate(new Date(`${year}/${month}/${date}`));
     setEndDate(
       new Date(
