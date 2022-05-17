@@ -74,6 +74,7 @@ function DetailSearch({
   //         startDate: searchCondition[0],
   //         endDate: searchCondition[1],
   //         dealType: searchCondition[2],
+  //         status: onGoing,
   //       }),
   //     })
   //       .then(res => res.json)
@@ -82,7 +83,7 @@ function DetailSearch({
   //         setForCSV(forCSV);
   //       });
   //   }
-  // }, [forCSV, searchCondition, searchWord, token]);
+  // }, [forCSV, onGoing, searchCondition, searchWord, token]);
 
   const sortOnGoingHandler = () => {
     onGoing === 'checked' ? setOnGoing('none') : setOnGoing('checked');
