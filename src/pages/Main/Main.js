@@ -4,7 +4,7 @@ import TotalAsset from './Sections/TotalAsset';
 import Asset from './Sections/Asset';
 import Deposit from './Sections/Deposit';
 import Withdraw from './Sections/Withdraw';
-import Detail from './Sections/Detail';
+import DetailByCoin from './Sections/DetailByCoin';
 
 function Main() {
   const [isPicked, setIsPicked] = useState(['picked', 'none', 'none']);
@@ -73,7 +73,7 @@ function Main() {
             {isPicked[1] === 'picked' && coinName !== '' && (
               <Withdraw coin={selectedCoin} />
             )}
-            {isPicked[2] === 'picked' && coinName !== '' && <Detail />}
+            {isPicked[2] === 'picked' && coinName !== '' && <DetailByCoin />}
           </RightSection>
         </MainArticle>
       </MainContainer>
@@ -147,7 +147,7 @@ const RightSectionNav = styled.div`
   align-items: center;
   width: 100%;
   height: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   span {
     font-size: 16px;
     font-weight: 400;
