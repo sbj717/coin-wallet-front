@@ -14,9 +14,11 @@ function DetailCard({ detail }) {
           <span>{coinName[1]}</span>
         </div>
         <div style={{ width: '10%' }}>{detail.blockchain_type}</div>
-        <div style={{ width: '15%' }}>{detail.quantity}</div>
-        <div style={{ width: '15%' }}>
-          {(detail.quantity * detail.price).toLocaleString()}
+        <div className="align" style={{ width: '15%' }}>
+          {detail.quantity}
+        </div>
+        <div className="align" style={{ width: '15%' }}>
+          {totalPrice}
         </div>
         <div style={{ width: '5%' }}>{detail.status}</div>
         <div style={{ width: '25%' }}>{detail.address}</div>
@@ -48,5 +50,9 @@ const DetailCardContainer = styled.div`
     flex-direction: column;
     font-size: 15px;
     text-align: center;
+  }
+  .align {
+    text-align: end;
+    padding-right: 10px;
   }
 `;

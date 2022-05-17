@@ -73,7 +73,9 @@ function Main() {
             {isPicked[1] === 'picked' && coinName !== '' && (
               <Withdraw coin={selectedCoin} />
             )}
-            {isPicked[2] === 'picked' && coinName !== '' && <DetailByCoin />}
+            {isPicked[2] === 'picked' && coinName !== '' && (
+              <DetailByCoin coin={selectedCoin} />
+            )}
           </RightSection>
         </MainArticle>
       </MainContainer>
@@ -147,7 +149,7 @@ const RightSectionNav = styled.div`
   align-items: center;
   width: 100%;
   height: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   span {
     font-size: 16px;
     font-weight: 400;

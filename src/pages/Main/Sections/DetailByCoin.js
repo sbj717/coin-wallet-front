@@ -6,8 +6,9 @@ import { GoSearch } from 'react-icons/go';
 import { FaRegListAlt } from 'react-icons/fa';
 import { IoMdRefresh } from 'react-icons/io';
 import CSVDownload from 'react-json-to-csv';
+import DetailByCoinCard from '../MainComponents/DetailByCoinCard';
 
-function DetailByCoin() {
+function DetailByCoin({ coin }) {
   const [detailList, setDetailList] = useState([]);
   const today = new Date();
   let year =
@@ -24,6 +25,18 @@ function DetailByCoin() {
   const [onGoingCheck, setOnGoingCheck] = useState('none');
   const [forCSV, setForCSV] = useState([]);
   const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    console.log('change coin');
+    fetch('/data/deposit_withdraw_detail_data.json', {
+      method: 'GET',
+      Headers: { 'Content-Type': 'application/json', token: token },
+    })
+      .then(res => res.json())
+      .then(res => {
+        setDetailList(res);
+      });
+  }, [coin.id, token]);
 
   const selectDeposit = () => {
     setPickType(['picked', 'none', 'none']);
@@ -45,6 +58,7 @@ function DetailByCoin() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
+        coinId: coin.id,
         startDate: startDate,
         endDate: endDate,
         dealType: dealType,
@@ -76,6 +90,7 @@ function DetailByCoin() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
+        coinId: coin.id,
         startDate: startDate,
         endDate: endDate,
         dealType: dealType,
@@ -93,6 +108,7 @@ function DetailByCoin() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
+        coinId: coin.id,
         startDate: startDate,
         endDate: endDate,
         dealType: dealType,
@@ -105,25 +121,27 @@ function DetailByCoin() {
       });
   };
 
-  useEffect(() => {
-    const totalPage = 10; //detailList.page
-    for (let i = 1; i <= totalPage; i++) {
-      fetch(`/?page=${i}&pageSize=20`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', token: token },
-        body: JSON.stringify({
-          startDate: startDate,
-          endDate: endDate,
-          dealType: dealType,
-        }),
-      })
-        .then(res => res.json)
-        .then(res => {
-          forCSV.concat(res);
-          setForCSV(forCSV);
-        });
-    }
-  }, [dealType, endDate, forCSV, startDate, token]);
+  // useEffect(() => {
+  //   const totalPage = 10; //detailList.page
+  //   for (let i = 1; i <= totalPage; i++) {
+  //     fetch(`/?page=${i}&pageSize=20`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json', token: token },
+  //       body: JSON.stringify({
+  //         coinId: coin.id,
+  //         startDate: startDate,
+  //         endDate: endDate,
+  //         dealType: dealType,
+  //         status: onGoingCheck,
+  //       }),
+  //     })
+  //       .then(res => res.json)
+  //       .then(res => {
+  //         forCSV.concat(res);
+  //         setForCSV(forCSV);
+  //       });
+  //   }
+  // }, [coin.id, dealType, endDate, forCSV, onGoingCheck, startDate, token]);
 
   return (
     <DetailWrapper>
@@ -194,10 +212,31 @@ function DetailByCoin() {
           </Download>
         </DetailCheck>
         <DetailTableHead>
-          <></>
+          <div className="section" style={{ width: '10%' }}>
+            구분
+          </div>
+          <div className="section" style={{ width: '19%' }}>
+            수량
+          </div>
+          <div className="section" style={{ width: '20%' }}>
+            평가금액
+          </div>
+          <div className="section" style={{ width: '9%' }}>
+            상태
+          </div>
+          <div className="section" style={{ width: '42%' }}>
+            <div className="part line" style={{ width: '100%' }}>
+              일시
+            </div>
+            <div className="part" style={{ width: '100%' }}>
+              주소
+            </div>
+          </div>
         </DetailTableHead>
         <DetailTableBody>
-          <></>
+          {detailList.map(detail => (
+            <DetailByCoinCard key={detail.id} detail={detail} />
+          ))}
         </DetailTableBody>
       </DetailContainer>
     </DetailWrapper>
@@ -395,11 +434,37 @@ const DetailTableHead = styled.div`
   flex-direction: row;
   align-items: center;
   width: 100%;
+  height: 40px;
+  background-color: #4231c8;
+  border-bottom: 1px solid #c5c5c5;
+  .section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    padding-top: 2px;
+    height: 40px;
+    .part {
+      text-align: center;
+      font-size: 14px;
+      color: white;
+      padding-top: 3px;
+      height: 20px;
+    }
+    .line {
+      border-bottom: 1px dotted #c5c5c5;
+    }
+  }
 `;
 
 const DetailTableBody = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 395px;
+  overflow-y: auto;
 `;
