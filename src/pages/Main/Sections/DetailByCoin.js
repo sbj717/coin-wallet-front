@@ -18,16 +18,24 @@ function DetailByCoin({ coin }) {
   const [startDate, setStartDate] = useState(
     new Date(`${year}/${month}/${date}`)
   );
-  const [endDate, setEndDate] = useState(today);
+  const [endDate, setEndDate] = useState(
+    new Date(
+      `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
+    )
+  );
+  const shortStartDate = `${startDate.getFullYear()}/${
+    startDate.getMonth() + 1
+  }/${startDate.getDate()}`;
+  const shortEndDate = `${endDate.getFullYear()}/${
+    endDate.getMonth() + 1
+  }/${endDate.getDate()}`;
   const [pickType, setPickType] = useState(['none', 'none', 'picked']);
   const [dealType, setDealType] = useState('all');
   const [onGoing, setOnGoing] = useState('none');
-  const [onGoingCheck, setOnGoingCheck] = useState('none');
   const [forCSV, setForCSV] = useState([]);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    console.log('change coin');
     fetch('/data/deposit_withdraw_detail_data.json', {
       method: 'GET',
       Headers: { 'Content-Type': 'application/json', token: token },
@@ -59,10 +67,10 @@ function DetailByCoin({ coin }) {
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
         coinId: coin.id,
-        startDate: startDate,
-        endDate: endDate,
+        startDate: shortStartDate,
+        endDate: shortEndDate,
         dealType: dealType,
-        status: onGoingCheck,
+        status: onGoing,
       }),
     })
       .then(res => res.json())
@@ -73,7 +81,11 @@ function DetailByCoin({ coin }) {
 
   const resetDetail = () => {
     setStartDate(new Date(`${year}/${month}/${date}`));
-    setEndDate(new Date(today));
+    setEndDate(
+      new Date(
+        `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
+      )
+    );
     setPickType(['none', 'none', 'picked']);
     setDealType('all');
     setOnGoing('none');
@@ -85,14 +97,13 @@ function DetailByCoin({ coin }) {
   };
 
   const sortOnGoing = check => {
-    setOnGoingCheck(check);
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
         coinId: coin.id,
-        startDate: startDate,
-        endDate: endDate,
+        startDate: shortStartDate,
+        endDate: shortEndDate,
         dealType: dealType,
         status: check,
       }),
@@ -109,10 +120,10 @@ function DetailByCoin({ coin }) {
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
         coinId: coin.id,
-        startDate: startDate,
-        endDate: endDate,
+        startDate: shortStartDate,
+        endDate: shortEndDate,
         dealType: dealType,
-        status: onGoingCheck,
+        status: onGoing,
       }),
     })
       .then(res => res.json())
@@ -129,10 +140,10 @@ function DetailByCoin({ coin }) {
   //       headers: { 'Content-Type': 'application/json', token: token },
   //       body: JSON.stringify({
   //         coinId: coin.id,
-  //         startDate: startDate,
-  //         endDate: endDate,
+  //         startDate: shortStartDate,
+  //         endDate: shortEndDate,
   //         dealType: dealType,
-  //         status: onGoingCheck,
+  //         status: onGoing,
   //       }),
   //     })
   //       .then(res => res.json)
@@ -141,7 +152,7 @@ function DetailByCoin({ coin }) {
   //         setForCSV(forCSV);
   //       });
   //   }
-  // }, [coin.id, dealType, endDate, forCSV, onGoingCheck, startDate, token]);
+  // }, [coin.id, dealType, endDate, forCSV, startDate, token]);
 
   return (
     <DetailWrapper>

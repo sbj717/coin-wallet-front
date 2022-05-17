@@ -24,7 +24,11 @@ function DetailSearch({
   const [startDate, setStartDate] = useState(
     new Date(`${year}/${month}/${date}`)
   );
-  const [endDate, setEndDate] = useState(today);
+  const [endDate, setEndDate] = useState(
+    new Date(
+      `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
+    )
+  );
   const [pickType, setPickType] = useState(['none', 'none', 'picked']);
   const [dealType, setDealType] = useState('all');
   const [forCSV, setForCSV] = useState([]);
@@ -35,7 +39,13 @@ function DetailSearch({
   };
 
   const sendCondition = () => {
-    const newCondition = [startDate, endDate, dealType];
+    const newCondition = [
+      `${startDate.getFullYear()}/${
+        startDate.getMonth() + 1
+      }/${startDate.getDate()}`,
+      `${endDate.getFullYear()}/${endDate.getMonth() + 1}/${endDate.getDate()}`,
+      dealType,
+    ];
     searchByCondition(newCondition);
   };
 
@@ -56,8 +66,13 @@ function DetailSearch({
 
   const resetDetail = () => {
     setSearchWordInput('');
+    searchByCoinName('');
     setStartDate(new Date(`${year}/${month}/${date}`));
-    setEndDate(new Date(today));
+    setEndDate(
+      new Date(
+        `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
+      )
+    );
     setPickType(['none', 'none', 'picked']);
     setDealType('all');
     setOnGoing('none');

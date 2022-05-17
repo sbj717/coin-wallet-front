@@ -11,13 +11,12 @@ function Detail() {
     today.getMonth() > 1 ? today.getFullYear() : today.getFullYear() - 1;
   let month = today.getMonth() > 1 ? today.getMonth() : today.getMonth() + 11;
   let date = today.getDate();
-  new Date(`${year}/${month}/${date}`);
-
   const [searchCondition, setSearchCondition] = useState([
     `${year}/${month}/${date}`,
-    `${today}`,
+    `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
     'all',
   ]);
+  const [refreshState, setRefreshState] = useState(0);
   const [onGoingCheck, setOnGoingCheck] = useState('none');
 
   const token = localStorage.getItem('token');
@@ -34,67 +33,29 @@ function Detail() {
   }, [token]);
 
   const searchByCoinName = name => {
-    console.log(name, searchCondition, onGoingCheck);
     setSearchWord(name);
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', token: token },
-      body: JSON.stringify({
-        searchWord: name,
-        startDate: searchCondition[0],
-        endDate: searchCondition[1],
-        dealType: searchCondition[2],
-        status: onGoingCheck,
-      }),
-    })
-      .then(res => res.json())
-      .then(res => {
-        setDetailList(res);
-      });
   };
 
   const searchByCondition = conditions => {
-    console.log(searchWord, conditions, onGoingCheck);
     setSearchCondition(conditions);
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', token: token },
-      body: JSON.stringify({
-        searchWord: searchWord,
-        startDate: conditions[0],
-        endDate: conditions[1],
-        dealType: conditions[2],
-        status: onGoingCheck,
-      }),
-    })
-      .then(res => res.json())
-      .then(res => {
-        setDetailList(res);
-      });
-  };
-
-  const refresh = () => {
-    console.log(searchWord, searchCondition, onGoingCheck);
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', token: token },
-      body: JSON.stringify({
-        searchWord: searchWord,
-        startDate: searchCondition[0],
-        endDate: searchCondition[1],
-        dealType: searchCondition[2],
-        status: onGoingCheck,
-      }),
-    })
-      .then(res => res.json())
-      .then(res => {
-        setDetailList(res);
-      });
   };
 
   const sortOnGoing = check => {
-    console.log(searchWord, searchCondition, check);
     setOnGoingCheck(check);
+  };
+
+  const refresh = () => {
+    refreshState === 0 ? setRefreshState(1) : setRefreshState(0);
+  };
+
+  useEffect(() => {
+    console.log(
+      searchWord,
+      searchCondition[0],
+      searchCondition[1],
+      searchCondition[2],
+      onGoingCheck
+    );
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
@@ -103,14 +64,14 @@ function Detail() {
         startDate: searchCondition[0],
         endDate: searchCondition[1],
         dealType: searchCondition[2],
-        status: check,
+        status: onGoingCheck,
       }),
     })
       .then(res => res.json())
       .then(res => {
         setDetailList(res);
       });
-  };
+  }, [onGoingCheck, searchCondition, searchWord, token, refreshState]);
 
   return (
     <DetailWrapper>
