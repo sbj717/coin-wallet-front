@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { GoSearch } from 'react-icons/go';
 import { FaRegListAlt } from 'react-icons/fa';
 import { IoMdRefresh } from 'react-icons/io';
+import CSVDownload from 'react-json-to-csv';
 
 function DetailSearch({
   searchByCoinName,
@@ -12,16 +13,23 @@ function DetailSearch({
   refresh,
   searchWord,
   searchCondition,
+  sortOnGoing,
 }) {
   const [searchWordInput, setSearchWordInput] = useState('');
-  const [startDate, setStartDate] = useState(new Date('2022/01/01'));
-  const [endDate, setEndDate] = useState(new Date('2022/01/01'));
+  const today = new Date();
+  let year =
+    today.getMonth() > 1 ? today.getFullYear() : today.getFullYear() - 1;
+  let month = today.getMonth() > 1 ? today.getMonth() : today.getMonth() + 11;
+  let date = today.getDate();
+  const [startDate, setStartDate] = useState(
+    new Date(`${year}/${month}/${date}`)
+  );
+  const [endDate, setEndDate] = useState(today);
   const [pickType, setPickType] = useState(['none', 'none', 'picked']);
   const [dealType, setDealType] = useState('all');
   const [forCSV, setForCSV] = useState([]);
   const [onGoing, setOnGoing] = useState('none');
   const token = localStorage.getItem('token');
-
   const searchWordInputHandler = e => {
     setSearchWordInput(e.target.value);
   };
@@ -48,36 +56,37 @@ function DetailSearch({
 
   const resetDetail = () => {
     setSearchWordInput('');
-    setStartDate(new Date('2022/01/01'));
-    setEndDate(new Date('2022/01/01'));
+    setStartDate(new Date(`${year}/${month}/${date}`));
+    setEndDate(new Date(today));
     setPickType(['none', 'none', 'picked']);
     setDealType('all');
     setOnGoing('none');
   };
 
-  const download = () => {
-    const totalPage = 10; //detailList.page
-    for (let i = 1; i <= totalPage; i++) {
-      fetch(`/?page=${i}&pageSize=20`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json', token: token },
-        body: JSON.stringify({
-          searchWord: searchWord,
-          startDate: searchCondition[0],
-          endDate: searchCondition[1],
-          dealType: searchCondition[2],
-        }),
-      })
-        .then(res => res.json)
-        .then(res => {
-          forCSV.concat(res);
-          setForCSV(forCSV);
-        });
-    }
-  };
+  // useEffect(() => {
+  //   const totalPage = 10; //detailList.page
+  //   for (let i = 1; i <= totalPage; i++) {
+  //     fetch(`/?page=${i}&pageSize=20`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json', token: token },
+  //       body: JSON.stringify({
+  //         searchWord: searchWord,
+  //         startDate: searchCondition[0],
+  //         endDate: searchCondition[1],
+  //         dealType: searchCondition[2],
+  //       }),
+  //     })
+  //       .then(res => res.json)
+  //       .then(res => {
+  //         forCSV.concat(res);
+  //         setForCSV(forCSV);
+  //       });
+  //   }
+  // }, [forCSV, searchCondition, searchWord, token]);
 
-  const sortOnGoing = () => {
+  const sortOnGoingHandler = () => {
     onGoing === 'checked' ? setOnGoing('none') : setOnGoing('checked');
+    onGoing === 'checked' ? sortOnGoing('none') : sortOnGoing('checked');
   };
 
   return (
@@ -151,14 +160,14 @@ function DetailSearch({
           </div>
           <span>새로고침</span>
         </Refresh>
-        <CSVDownload>
-          <div className="icon" onClick={download}>
+        <Download>
+          <CSVDownload className="icon" data={forCSV}>
             <FaRegListAlt />
-          </div>
+          </CSVDownload>
           <span>CSV 다운로드</span>
-        </CSVDownload>
+        </Download>
         <OnGoing>
-          <div className={onGoing} onClick={sortOnGoing} />
+          <div className={onGoing} onClick={sortOnGoingHandler} />
           <span>진행 항목만 보기</span>
         </OnGoing>
       </DetailSearchContainer>
@@ -321,6 +330,7 @@ const Refresh = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 18px;
+    color: #4231c8;
     padding-bottom: 1px;
     margin-right: 5px;
     cursor: pointer;
@@ -332,7 +342,7 @@ const Refresh = styled.div`
   }
 `;
 
-const CSVDownload = styled.div`
+const Download = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -346,6 +356,9 @@ const CSVDownload = styled.div`
     font-size: 18px;
     padding-top: 3px;
     margin-right: 7px;
+    border: 1px;
+    background-color: transparent;
+    padding: 4px 0px 0px 0px;
     cursor: pointer;
   }
 `;

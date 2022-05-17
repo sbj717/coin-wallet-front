@@ -6,7 +6,19 @@ import DetailSearch from './components/DetailSearch';
 function Detail() {
   const [detailList, setDetailList] = useState([]);
   const [searchWord, setSearchWord] = useState('');
-  const [searchCondition, setSearchCondition] = useState([]);
+  const today = new Date();
+  let year =
+    today.getMonth() > 1 ? today.getFullYear() : today.getFullYear() - 1;
+  let month = today.getMonth() > 1 ? today.getMonth() : today.getMonth() + 11;
+  let date = today.getDate();
+  new Date(`${year}/${month}/${date}`);
+
+  const [searchCondition, setSearchCondition] = useState([
+    `${year}/${month}/${date}`,
+    `${today}`,
+    'all',
+  ]);
+  const [onGoingCheck, setOnGoingCheck] = useState('none');
 
   const token = localStorage.getItem('token');
 
@@ -22,12 +34,17 @@ function Detail() {
   }, [token]);
 
   const searchByCoinName = name => {
+    console.log(name, searchCondition, onGoingCheck);
     setSearchWord(name);
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
         searchWord: name,
+        startDate: searchCondition[0],
+        endDate: searchCondition[1],
+        dealType: searchCondition[2],
+        status: onGoingCheck,
       }),
     })
       .then(res => res.json())
@@ -37,6 +54,7 @@ function Detail() {
   };
 
   const searchByCondition = conditions => {
+    console.log(searchWord, conditions, onGoingCheck);
     setSearchCondition(conditions);
     fetch('/', {
       method: 'POST',
@@ -46,6 +64,7 @@ function Detail() {
         startDate: conditions[0],
         endDate: conditions[1],
         dealType: conditions[2],
+        status: onGoingCheck,
       }),
     })
       .then(res => res.json())
@@ -55,6 +74,7 @@ function Detail() {
   };
 
   const refresh = () => {
+    console.log(searchWord, searchCondition, onGoingCheck);
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
@@ -63,6 +83,27 @@ function Detail() {
         startDate: searchCondition[0],
         endDate: searchCondition[1],
         dealType: searchCondition[2],
+        status: onGoingCheck,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        setDetailList(res);
+      });
+  };
+
+  const sortOnGoing = check => {
+    console.log(searchWord, searchCondition, check);
+    setOnGoingCheck(check);
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', token: token },
+      body: JSON.stringify({
+        searchWord: searchWord,
+        startDate: searchCondition[0],
+        endDate: searchCondition[1],
+        dealType: searchCondition[2],
+        status: check,
       }),
     })
       .then(res => res.json())
@@ -80,6 +121,7 @@ function Detail() {
             searchByCoinName={searchByCoinName}
             searchByCondition={searchByCondition}
             refresh={refresh}
+            sortOnGoing={sortOnGoing}
             searchWord={searchWord}
             searchCondition={searchCondition}
           />
