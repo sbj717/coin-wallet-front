@@ -12,7 +12,9 @@ function Withdraw({ coin }) {
   };
 
   const quantityInputHandler = e => {
-    setWdQuantity(e.target.value);
+    e.target.value.length === 0
+      ? setWdQuantity(e.target.value)
+      : setWdQuantity(Math.abs(e.target.value));
   };
 
   useEffect(() => {
@@ -54,7 +56,7 @@ function Withdraw({ coin }) {
         <WithdrawQuantity>
           <p>출금수량</p>
           <input
-            type="text"
+            type="number"
             value={wdQuantity}
             onChange={quantityInputHandler}
           />
@@ -85,6 +87,7 @@ const WithdrawContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-top: 15px;
 `;
 
 const BlockchainType = styled.div`
@@ -139,6 +142,15 @@ const WithdrawQuantity = styled.div`
     height: 30px;
     border: 1px solid black;
     margin-right: 5px;
+  }
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  /* Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
   span {
     position: absolute;

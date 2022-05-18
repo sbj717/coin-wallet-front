@@ -62,6 +62,7 @@ const DepositContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-top: 15px;
 `;
 
 const BlockchainType = styled.div`
