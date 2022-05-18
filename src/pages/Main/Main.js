@@ -15,12 +15,12 @@ function Main() {
   useEffect(() => {
     fetch('/data/coin_list_data.json', {
       method: 'GET',
-      Headers: { 'Content-Type': 'application/json', token: token },
+      Headers: { 'Content-Type': 'application/json', access_token: token },
     })
       .then(res => res.json())
       .then(res => {
-        res.forEach(el => (el.isSelected = false));
-        setCoinList(res);
+        res.assetList.forEach(el => (el.isSelected = false));
+        setCoinList(res.assetList);
       });
   }, [token]);
 
@@ -39,9 +39,9 @@ function Main() {
   const [coinName, setCoinName] = useState('');
 
   const sendId = (id, check) => {
-    const coinName = coinList.filter(el => el.id === id)[0].coin_name;
+    const coinName = coinList.filter(el => el.asset_id === id)[0].coin_name;
     check ? setCoinName(coinName) : setCoinName('');
-    const coin = coinList.filter(el => el.id === id)[0];
+    const coin = coinList.filter(el => el.asset_id === id)[0];
     check ? setSelectedCoin(coin) : setSelectedCoin({});
   };
 

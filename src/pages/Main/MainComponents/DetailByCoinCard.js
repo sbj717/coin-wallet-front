@@ -8,7 +8,7 @@ function DetailByCoinCard({ detail }) {
     <DetailCardWrapper>
       <DetailCardContainer>
         <div className="section" style={{ width: '10%' }}>
-          {detail.kind}
+          {detail.detail_type}
         </div>
         <div className="section align" style={{ width: '20%' }}>
           {detail.quantity}
@@ -21,7 +21,7 @@ function DetailByCoinCard({ detail }) {
         </div>
         <div className="section" style={{ width: '40%' }}>
           <div className="part line" style={{ width: '100%' }}>
-            {detail.updated_at}
+            {detail.update_at}
           </div>
           <div className="part" style={{ width: '100%' }}>
             {detail.address}

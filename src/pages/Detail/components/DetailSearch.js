@@ -85,10 +85,10 @@ function DetailSearch({
   //       method: 'POST',
   //       headers: { 'Content-Type': 'application/json', token: token },
   //       body: JSON.stringify({
-  //         searchWord: searchWord,
+  //         search: searchWord,
   //         startDate: searchCondition[0],
   //         endDate: searchCondition[1],
-  //         dealType: searchCondition[2],
+  //         detailType: searchCondition[2],
   //         status: onGoing,
   //       }),
   //     })

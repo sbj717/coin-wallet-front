@@ -44,7 +44,7 @@ function DetailByCoin({ coin }) {
       .then(res => {
         setDetailList(res);
       });
-  }, [coin.id, token]);
+  }, [coin.asset_id, token]);
 
   const selectDeposit = () => {
     setPickType(['picked', 'none', 'none']);
@@ -66,10 +66,11 @@ function DetailByCoin({ coin }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
-        coinId: coin.id,
+        coinId: coin.coin_id,
+        blockchainTypeId: coin.blockchain_type_id,
         startDate: shortStartDate,
         endDate: shortEndDate,
-        dealType: dealType,
+        detailType: dealType,
         status: onGoing,
       }),
     })
@@ -101,10 +102,11 @@ function DetailByCoin({ coin }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
-        coinId: coin.id,
+        coinId: coin.coin_id,
+        blockchainTypeId: coin.blockchain_type_id,
         startDate: shortStartDate,
         endDate: shortEndDate,
-        dealType: dealType,
+        detailType: dealType,
         status: check,
       }),
     })
@@ -119,7 +121,8 @@ function DetailByCoin({ coin }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
-        coinId: coin.id,
+        coinId: coin.coin_id,
+        blockchainTypeId: coin.blockchain_type_id,
         startDate: shortStartDate,
         endDate: shortEndDate,
         dealType: dealType,
@@ -139,7 +142,8 @@ function DetailByCoin({ coin }) {
   //       method: 'POST',
   //       headers: { 'Content-Type': 'application/json', token: token },
   //       body: JSON.stringify({
-  //         coinId: coin.id,
+  //         coinId: coin.coin_id,
+  //         blockchainTypeId: coin.blockchain_type_id,
   //         startDate: shortStartDate,
   //         endDate: shortEndDate,
   //         dealType: dealType,
@@ -246,7 +250,7 @@ function DetailByCoin({ coin }) {
         </DetailTableHead>
         <DetailTableBody>
           {detailList.map(detail => (
-            <DetailByCoinCard key={detail.id} detail={detail} />
+            <DetailByCoinCard key={detail.row_id} detail={detail} />
           ))}
         </DetailTableBody>
       </DetailContainer>

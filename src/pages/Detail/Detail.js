@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaSquareRootAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import DetailCard from './components/DetailCard';
 import DetailSearch from './components/DetailSearch';
@@ -57,14 +58,14 @@ function Detail() {
       searchCondition[2],
       onGoingCheck
     );
-    fetch('/', {
+    fetch(`/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({
-        searchWord: searchWord,
+        search: searchWord,
         startDate: searchCondition[0],
         endDate: searchCondition[1],
-        dealType: searchCondition[2],
+        detailType: searchCondition[2],
         status: onGoingCheck,
       }),
     })

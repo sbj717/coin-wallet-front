@@ -32,6 +32,7 @@ function Header() {
 
   const logout = () => {
     setUserInfo('');
+    localStorage.removeItem('token');
     navigate('/');
   };
 

@@ -5,10 +5,21 @@ import QRCodeCard from '../MainComponents/QRCodeCard';
 
 function Deposit({ coin }) {
   const [address, setAddress] = useState('');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    setAddress(coin.deposit_address);
-  }, [coin.deposit_address]);
+    fetch('http://3.36.65.166:8000/assets/address', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', access_token: token },
+      body: JSON.stringify({
+        coinId: coin.coin_id,
+        coinBlockchainTypeId: coin.coins_blockchain_types_id,
+        blockchainTypeId: coin.blockchain_type_id,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => setAddress(res.assetAddress[0].deposit_address));
+  });
 
   const copyToClipBoard = async () => {
     await navigator.clipboard.writeText(address);
@@ -21,12 +32,12 @@ function Deposit({ coin }) {
         <DepositContainer>
           <BlockchainType>
             <span>블록체인 타입 선택</span>
-            <span>{coin.blockchain_type}</span>
+            <span>{coin.type_name}</span>
           </BlockchainType>
           <DepositAddress>
             <span>입금주소</span>
             <div>
-              <p>{coin.deposit_address}</p>
+              <p>{address}</p>
               <button onClick={copyToClipBoard}>복사</button>
             </div>
           </DepositAddress>
@@ -38,7 +49,7 @@ function Deposit({ coin }) {
           </QRCode>
         </DepositContainer>
       )}
-      {coin.id === undefined && (
+      {coin.asset_id === undefined && (
         <PickNothing>
           <BsCardChecklist />
           <p>왼쪽 표에서 코인을 선택하세요.</p>

@@ -61,7 +61,7 @@ function Login() {
 
   const handleLogin = () => {
     if (isPossible === 'active') {
-      fetch('', {
+      fetch('http://3.36.65.166:8000/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -71,7 +71,7 @@ function Login() {
       })
         .then(res => res.json())
         .then(res => {
-          localStorage.setItem(res.token);
+          localStorage.setItem({ token: res.access_token });
         });
 
       const token = localStorage.getItem('token');

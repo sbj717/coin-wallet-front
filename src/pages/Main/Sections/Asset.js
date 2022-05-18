@@ -57,7 +57,7 @@ function Asset({ list, sendId }) {
   };
 
   const selectCoin = id => {
-    const index = newList.findIndex(el => el.id === id);
+    const index = newList.findIndex(el => el.asset_id === id);
     if (id !== coinId) {
       newList.forEach(el => {
         el.isSelected = false;
@@ -104,7 +104,11 @@ function Asset({ list, sendId }) {
           </ListHead>
           <ListBodyWrapper>
             {newList.map(coin => (
-              <CoinCard key={coin.id} coin={coin} selectCoin={selectCoin} />
+              <CoinCard
+                key={coin.asset_id}
+                coin={coin}
+                selectCoin={selectCoin}
+              />
             ))}
           </ListBodyWrapper>
         </ListWrapper>
