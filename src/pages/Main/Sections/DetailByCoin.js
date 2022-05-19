@@ -30,52 +30,54 @@ function DetailByCoin({ coin }) {
     endDate.getMonth() + 1
   }/${endDate.getDate()}`;
   const [pickType, setPickType] = useState(['none', 'none', 'picked']);
-  const [dealType, setDealType] = useState('all');
-  const [onGoing, setOnGoing] = useState('none');
+  const [dealType, setDealType] = useState('');
+  const [searchCondition, setSearchCondition] = useState([]);
+  const [onGoing, setOnGoing] = useState('');
   const [forCSV, setForCSV] = useState([]);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch('/data/deposit_withdraw_detail_data.json', {
-      method: 'GET',
-      Headers: { 'Content-Type': 'application/json', token: token },
-    })
+    setSearchCondition([shortStartDate, shortEndDate, dealType]);
+    fetch(
+      `http://3.36.65.166:8000/details?coinId=${coin.coin_id}&blockchainTypeId=${coin.blockchain_type_id}&pageCount=1&startDate=${shortStartDate}&endDate=${shortEndDate}&detailType=${dealType}&status=${onGoing}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+      }
+    )
       .then(res => res.json())
       .then(res => {
-        setDetailList(res);
+        setDetailList(res.detailList);
       });
-  }, [coin.id, token]);
+  }, [coin.blockchain_type_id, coin.coin_id, token]);
 
   const selectDeposit = () => {
     setPickType(['picked', 'none', 'none']);
-    setDealType('deposit');
+    setDealType('입금');
   };
 
   const selectWithdraw = () => {
     setPickType(['none', 'picked', 'none']);
-    setDealType('withdraw');
+    setDealType('출금');
   };
 
   const selectAll = () => {
     setPickType(['none', 'none', 'picked']);
-    setDealType('all');
+    setDealType('');
   };
 
   const search = () => {
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', token: token },
-      body: JSON.stringify({
-        coinId: coin.id,
-        startDate: shortStartDate,
-        endDate: shortEndDate,
-        dealType: dealType,
-        status: onGoing,
-      }),
-    })
+    setSearchCondition([shortStartDate, shortEndDate, dealType]);
+    fetch(
+      `http://3.36.65.166:8000/details?coinId=${coin.coin_id}&blockchainTypeId=${coin.blockchain_type_id}&pageCount=1&startDate=${shortStartDate}&endDate=${shortEndDate}&detailType=${dealType}&status=${onGoing}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+      }
+    )
       .then(res => res.json())
       .then(res => {
-        setDetailList(res);
+        setDetailList(res.detailList);
       });
   };
 
@@ -87,72 +89,56 @@ function DetailByCoin({ coin }) {
       )
     );
     setPickType(['none', 'none', 'picked']);
-    setDealType('all');
-    setOnGoing('none');
+    setDealType('');
+    setOnGoing('');
   };
 
   const sortOnGoingHandler = () => {
-    onGoing === 'checked' ? setOnGoing('none') : setOnGoing('checked');
-    onGoing === 'checked' ? sortOnGoing('none') : sortOnGoing('checked');
+    onGoing === '진행' ? setOnGoing('') : setOnGoing('진행');
+    onGoing === '진행' ? sortOnGoing('') : sortOnGoing('진행');
   };
 
   const sortOnGoing = check => {
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', token: token },
-      body: JSON.stringify({
-        coinId: coin.id,
-        startDate: shortStartDate,
-        endDate: shortEndDate,
-        dealType: dealType,
-        status: check,
-      }),
-    })
+    fetch(
+      `http://3.36.65.166:8000/details?coinId=${coin.coin_id}&blockchainTypeId=${coin.blockchain_type_id}&pageCount=1&startDate=${searchCondition[0]}&endDate=${searchCondition[1]}&detailType=${searchCondition[2]}&status=${check}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+      }
+    )
       .then(res => res.json())
       .then(res => {
-        setDetailList(res);
+        setDetailList(res.detailList);
       });
   };
 
   const refresh = () => {
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', token: token },
-      body: JSON.stringify({
-        coinId: coin.id,
-        startDate: shortStartDate,
-        endDate: shortEndDate,
-        dealType: dealType,
-        status: onGoing,
-      }),
-    })
+    fetch(
+      `http://3.36.65.166:8000/details?coinId=${coin.coin_id}&blockchainTypeId=${coin.blockchain_type_id}&pageCount=1&startDate=${searchCondition[0]}&endDate=${searchCondition[1]}&detailType=${searchCondition[2]}&status=${onGoing}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+      }
+    )
       .then(res => res.json())
       .then(res => {
-        setDetailList(res);
+        setDetailList(res.detailList);
       });
   };
 
-  // useEffect(() => {
-  //   const totalPage = 10; //detailList.page
-  //   for (let i = 1; i <= totalPage; i++) {
-  //     fetch(`/?page=${i}&pageSize=20`, {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json', token: token },
-  //       body: JSON.stringify({
-  //         coinId: coin.id,
-  //         startDate: shortStartDate,
-  //         endDate: shortEndDate,
-  //         dealType: dealType,
-  //         status: onGoing,
-  //       }),
-  //     })
-  //       .then(res => res.json)
-  //       .then(res => {
-  //         forCSV.concat(res);
-  //         setForCSV(forCSV);
-  //       });
-  //   }
-  // }, [coin.id, dealType, endDate, forCSV, startDate, token]);
+  useEffect(() => {
+    fetch(
+      `http://3.36.65.166:8000/details?coinId=${coin.coin_id}&blockchainTypeId=${coin.blockchain_type_id}&startDate=${searchCondition[0]}&endDate=${searchCondition[1]}&detailType=${searchCondition[2]}&status=${onGoing}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+      }
+    )
+      .then(res => res.json())
+      .then(res => {
+        setForCSV(res.detailList);
+      });
+  }, [coin.blockchain_type_id, coin.coin_id, searchCondition, onGoing, token]);
 
   return (
     <DetailWrapper>
@@ -246,7 +232,7 @@ function DetailByCoin({ coin }) {
         </DetailTableHead>
         <DetailTableBody>
           {detailList.map(detail => (
-            <DetailByCoinCard key={detail.id} detail={detail} />
+            <DetailByCoinCard key={detail.row_id} detail={detail} />
           ))}
         </DetailTableBody>
       </DetailContainer>
@@ -390,7 +376,7 @@ const OnGoing = styled.div`
     font-size: 14px;
     font-weight: 400;
   }
-  .checked {
+  .진행 {
     border: 0;
     background-color: #4231c8;
   }

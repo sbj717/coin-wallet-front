@@ -23,17 +23,26 @@ function Withdraw({ coin }) {
   }, [coin.price, wdQuantity]);
 
   const withdrawCoin = () => {
-    if (wdAddress.length !== 0 && wdQuantity !== 0) {
-      fetch('/', {
+    if (
+      wdAddress.length !== 0 &&
+      wdQuantity.length !== 0 &&
+      wdQuantity !== 0 &&
+      wdQuantity <= coin.quantity
+    ) {
+      console.log(
+        coin.asset_id,
+        coin.blockchain_type_id,
+        wdAddress,
+        wdQuantity
+      );
+      fetch('http://3.36.65.166:8000/withdrawals', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', token: token },
+        headers: { 'Content-Type': 'application/json', access_token: token },
         body: JSON.stringify({
-          coin_id: coin.id,
-          // blockchain_type_id: coin.blockchain_type_id,
-          deposit_address: coin.address,
+          assetId: coin.asset_id,
+          blockchainTypeId: coin.blockchain_type_id,
           quantity: wdQuantity,
-          // asset_id: ,
-          withdrawal_address: wdAddress,
+          withdrawalAddress: wdAddress,
         }),
       }).then(res => res.json());
       alert(`${wdQuantity}${coinUnit} 출금되었습니다.`);
