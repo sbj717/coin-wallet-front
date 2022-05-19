@@ -13,16 +13,16 @@ function Main() {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch('/data/coin_list_data.json', {
+    fetch('http://3.36.65.166:8000/assets', {
       method: 'GET',
-      Headers: { 'Content-Type': 'application/json', access_token: token },
+      headers: { 'Content-Type': 'application/json', access_token: token },
     })
       .then(res => res.json())
       .then(res => {
         res.assetList.forEach(el => (el.isSelected = false));
         setCoinList(res.assetList);
       });
-  }, [token]);
+  }, []);
 
   const goToDeposit = () => {
     setIsPicked(['picked', 'none', 'none']);
@@ -39,9 +39,11 @@ function Main() {
   const [coinName, setCoinName] = useState('');
 
   const sendId = (id, check) => {
-    const coinName = coinList.filter(el => el.asset_id === id)[0].coin_name;
+    const coinName = coinList.filter(
+      el => el.coins_blockchain_types_id === id
+    )[0].coin_name;
     check ? setCoinName(coinName) : setCoinName('');
-    const coin = coinList.filter(el => el.asset_id === id)[0];
+    const coin = coinList.filter(el => el.coins_blockchain_types_id === id)[0];
     check ? setSelectedCoin(coin) : setSelectedCoin({});
   };
 

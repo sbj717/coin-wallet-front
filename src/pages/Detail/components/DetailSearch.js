@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -14,6 +14,7 @@ function DetailSearch({
   searchWord,
   searchCondition,
   sortOnGoing,
+  jsonForCSV,
 }) {
   const [searchWordInput, setSearchWordInput] = useState('');
   const today = new Date();
@@ -30,13 +31,16 @@ function DetailSearch({
     )
   );
   const [pickType, setPickType] = useState(['none', 'none', 'picked']);
-  const [dealType, setDealType] = useState('all');
-  const [forCSV, setForCSV] = useState([]);
-  const [onGoing, setOnGoing] = useState('none');
-  const token = localStorage.getItem('token');
+  const [dealType, setDealType] = useState('');
+  const [onGoing, setOnGoing] = useState('');
 
   const searchWordInputHandler = e => {
     setSearchWordInput(e.target.value);
+  };
+
+  const sendCoinName = () => {
+    searchByCoinName(searchWordInput);
+    setPickType(['none', 'none', 'picked']);
   };
 
   const sendCondition = () => {
@@ -52,17 +56,17 @@ function DetailSearch({
 
   const selectDeposit = () => {
     setPickType(['picked', 'none', 'none']);
-    setDealType('deposit');
+    setDealType('입금');
   };
 
   const selectWithdraw = () => {
     setPickType(['none', 'picked', 'none']);
-    setDealType('withdraw');
+    setDealType('출금');
   };
 
   const selectAll = () => {
     setPickType(['none', 'none', 'picked']);
-    setDealType('all');
+    setDealType('');
   };
 
   const resetDetail = () => {
@@ -74,35 +78,12 @@ function DetailSearch({
       )
     );
     setPickType(['none', 'none', 'picked']);
-    setDealType('all');
-    setOnGoing('none');
+    setDealType('');
   };
 
-  // useEffect(() => {
-  //   const totalPage = 10; //detailList.page
-  //   for (let i = 1; i <= totalPage; i++) {
-  //     fetch(`/?page=${i}&pageSize=20`, {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json', token: token },
-  //       body: JSON.stringify({
-  //         search: searchWord,
-  //         startDate: searchCondition[0],
-  //         endDate: searchCondition[1],
-  //         detailType: searchCondition[2],
-  //         status: onGoing,
-  //       }),
-  //     })
-  //       .then(res => res.json)
-  //       .then(res => {
-  //         forCSV.concat(res);
-  //         setForCSV(forCSV);
-  //       });
-  //   }
-  // }, [forCSV, onGoing, searchCondition, searchWord, token]);
-
   const sortOnGoingHandler = () => {
-    onGoing === 'checked' ? setOnGoing('none') : setOnGoing('checked');
-    onGoing === 'checked' ? sortOnGoing('none') : sortOnGoing('checked');
+    onGoing === '진행' ? setOnGoing('') : setOnGoing('진행');
+    onGoing === '진행' ? sortOnGoing('') : sortOnGoing('진행');
   };
 
   return (
@@ -115,11 +96,7 @@ function DetailSearch({
             value={searchWordInput}
             onChange={searchWordInputHandler}
           />
-          <div
-            onClick={() => {
-              searchByCoinName(searchWordInput);
-            }}
-          >
+          <div onClick={sendCoinName}>
             <GoSearch />
           </div>
         </SearchByName>
@@ -177,7 +154,7 @@ function DetailSearch({
           <span>새로고침</span>
         </Refresh>
         <Download>
-          <CSVDownload className="icon" data={forCSV}>
+          <CSVDownload className="icon" data={jsonForCSV}>
             <FaRegListAlt />
           </CSVDownload>
           <span>CSV 다운로드</span>
@@ -223,8 +200,9 @@ const SearchByName = styled.div`
     margin-right: 10px;
   }
   input {
+    font-size: 16px;
     width: 150px;
-    padding: 5px;
+    padding: 4px 5px 2px 5px;
     border: 0px;
     border-bottom: 2px solid #4231c8;
   }
@@ -394,7 +372,7 @@ const OnGoing = styled.div`
     font-size: 16px;
     font-weight: 400;
   }
-  .checked {
+  .진행 {
     border: 0;
     background-color: #4231c8;
   }

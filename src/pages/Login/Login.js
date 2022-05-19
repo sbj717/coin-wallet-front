@@ -23,7 +23,7 @@ function Login() {
     idState.includes('@') && idState.includes('.')
       ? setIsPossible('active')
       : setIsPossible('disable');
-  }, [idCheck, idState, pwState]);
+  }, [idState, pwState]);
 
   useEffect(() => {
     const reg =
@@ -71,16 +71,14 @@ function Login() {
       })
         .then(res => res.json())
         .then(res => {
-          localStorage.setItem({ token: res.access_token });
+          localStorage.setItem('token', res.access_token);
+          if (res.access_token !== undefined) {
+            navigate('/main');
+          } else {
+            setIdCheck('none');
+            setPwCheck('이메일 혹은 비밀번호가 잘못되었습니다.');
+          }
         });
-
-      const token = localStorage.getItem('token');
-      if (token !== null) {
-        navigate('/main');
-      } else {
-        setIdCheck('none');
-        setPwCheck('이메일 혹은 비밀번호가 잘못되었습니다.');
-      }
     }
   };
 

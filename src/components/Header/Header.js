@@ -4,16 +4,18 @@ import { FiPower } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState({});
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch('/data/user_data.json', {
+    fetch('http://3.36.65.166:8000/users/info', {
       method: 'GET',
-      Headers: { 'Content-Type': 'application/json', token: token },
+      headers: { 'Content-Type': 'application/json', access_token: token },
     })
       .then(res => res.json())
-      .then(res => setUserInfo(res));
+      .then(res => {
+        setUserInfo(res);
+      });
   }, [token]);
 
   const navigate = useNavigate();
@@ -41,12 +43,16 @@ function Header() {
       <HeaderContainer>
         <LeftSide>
           <img src="images/logo.svg" alt="" onClick={goToFirst} />
-          {userInfo !== null && <button onClick={goToMain}>입출금</button>}
-          {userInfo !== null && <button onClick={goToList}>입출금 내역</button>}
+          {userInfo.status !== 401 && (
+            <button onClick={goToMain}>입출금</button>
+          )}
+          {userInfo.status !== 401 && (
+            <button onClick={goToList}>입출금 내역</button>
+          )}
         </LeftSide>
         <RightSide>
-          {userInfo !== null && <p>{userInfo.email}</p>}
-          {userInfo !== null && (
+          {userInfo.status !== 401 && <p>{userInfo.userEmail}</p>}
+          {userInfo.status !== 401 && (
             <button onClick={logout}>
               <FiPower />
             </button>

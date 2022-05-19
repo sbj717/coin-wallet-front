@@ -9,7 +9,7 @@ function Deposit({ coin }) {
 
   useEffect(() => {
     fetch('http://3.36.65.166:8000/assets/address', {
-      method: 'GET',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json', access_token: token },
       body: JSON.stringify({
         coinId: coin.coin_id,
@@ -19,7 +19,12 @@ function Deposit({ coin }) {
     })
       .then(res => res.json())
       .then(res => setAddress(res.assetAddress[0].deposit_address));
-  });
+  }, [
+    coin.blockchain_type_id,
+    coin.coin_id,
+    coin.coins_blockchain_types_id,
+    token,
+  ]);
 
   const copyToClipBoard = async () => {
     await navigator.clipboard.writeText(address);
@@ -28,7 +33,7 @@ function Deposit({ coin }) {
 
   return (
     <DepositWrapper>
-      {coin.id !== undefined && (
+      {coin.coin_id !== undefined && (
         <DepositContainer>
           <BlockchainType>
             <span>블록체인 타입 선택</span>
@@ -105,8 +110,8 @@ const DepositAddress = styled.div`
     justify-content: flex-start;
     width: 100%;
     p {
-      font-size: 16px;
-      padding: 7px 10px 5px 10px;
+      font-size: 13px;
+      padding: 9px 10px 5px 10px;
       width: 85%;
       height: 30px;
       border: 1px solid black;

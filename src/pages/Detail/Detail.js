@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FaSquareRootAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import DetailCard from './components/DetailCard';
 import DetailSearch from './components/DetailSearch';
@@ -15,26 +14,36 @@ function Detail() {
   const [searchCondition, setSearchCondition] = useState([
     `${year}/${month}/${date}`,
     `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
-    'all',
+    '',
   ]);
   const [refreshState, setRefreshState] = useState(0);
-  const [onGoingCheck, setOnGoingCheck] = useState('none');
+  const [onGoingCheck, setOnGoingCheck] = useState('');
+  const [page, setPage] = useState(1);
+  const [jsonForCSV, setJsonForCSV] = useState({});
 
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch('/data/deposit_withdraw_detail_data.json', {
-      method: 'GET',
-      Headers: { 'Content-Type': 'application/json', token: token },
-    })
+    fetch(
+      `http://3.36.65.166:8000/details?search=${searchWord}&pageCount=1&startDate=${searchCondition[0]}&endDate=${searchCondition[1]}&detailType=${searchCondition[2]}&status=${onGoingCheck}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+      }
+    )
       .then(res => res.json())
       .then(res => {
-        setDetailList(res);
+        setDetailList(res.detailList);
       });
-  }, [token]);
+  }, []);
 
   const searchByCoinName = name => {
     setSearchWord(name);
+    setSearchCondition([
+      `${year}/${month}/${date}`,
+      `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
+      '',
+    ]);
   };
 
   const searchByCondition = (conditions, searchWordInput) => {
@@ -51,27 +60,28 @@ function Detail() {
   };
 
   useEffect(() => {
-    console.log(
-      searchWord,
-      searchCondition[0],
-      searchCondition[1],
-      searchCondition[2],
-      onGoingCheck
-    );
-    fetch(`/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', token: token },
-      body: JSON.stringify({
-        search: searchWord,
-        startDate: searchCondition[0],
-        endDate: searchCondition[1],
-        detailType: searchCondition[2],
-        status: onGoingCheck,
-      }),
-    })
+    fetch(
+      `http://3.36.65.166:8000/details?search=${searchWord}&pageCount=${page}&startDate=${searchCondition[0]}&endDate=${searchCondition[1]}&detailType=${searchCondition[2]}&status=${onGoingCheck}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+      }
+    )
       .then(res => res.json())
       .then(res => {
-        setDetailList(res);
+        setDetailList(res.detailList);
+      });
+
+    fetch(
+      `http://3.36.65.166:8000/details?search=${searchWord}&startDate=${searchCondition[0]}&endDate=${searchCondition[1]}&detailType=${searchCondition[2]}&status=${onGoingCheck}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+      }
+    )
+      .then(res => res.json())
+      .then(res => {
+        setJsonForCSV(res.detailList);
       });
   }, [onGoingCheck, searchCondition, searchWord, token, refreshState]);
 
@@ -87,15 +97,16 @@ function Detail() {
             sortOnGoing={sortOnGoing}
             searchWord={searchWord}
             searchCondition={searchCondition}
+            jsonForCSV={jsonForCSV}
           />
           <DetailTable>
             <TableHead>
               <span style={{ width: '5%' }}>구분</span>
               <span style={{ width: '10%' }}>코인명</span>
               <span style={{ width: '10%' }}>블록체인 타입</span>
-              <span style={{ width: '15%' }}>수량</span>
-              <span style={{ width: '15%' }}>평가금액</span>
-              <span style={{ width: '5%' }}>상태</span>
+              <span style={{ width: '12%' }}>수량</span>
+              <span style={{ width: '13%' }}>평가금액</span>
+              <span style={{ width: '10%' }}>상태</span>
               <span style={{ width: '25%' }}>주소</span>
               <span style={{ width: '15%' }}>일시</span>
             </TableHead>

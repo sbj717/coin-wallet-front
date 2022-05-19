@@ -2,7 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 function DetailByCoinCard({ detail }) {
-  const totalPrice = '₩ ' + (detail.price * detail.quantity).toLocaleString();
+  const coinQuantity = detail.quantity
+    .toLocaleString('en', { maximumSignificantDigits: 15 })
+    .slice(0, 12);
+  const totalPrice =
+    '₩ ' +
+    (detail.price * detail.quantity)
+      .toLocaleString('en', { maximumSignificantDigits: 15 })
+      .slice(0, 12);
 
   return (
     <DetailCardWrapper>
@@ -11,7 +18,7 @@ function DetailByCoinCard({ detail }) {
           {detail.detail_type}
         </div>
         <div className="section align" style={{ width: '20%' }}>
-          {detail.quantity}
+          {coinQuantity}
         </div>
         <div className="section align" style={{ width: '20%' }}>
           {totalPrice}
@@ -24,7 +31,7 @@ function DetailByCoinCard({ detail }) {
             {detail.update_at}
           </div>
           <div className="part" style={{ width: '100%' }}>
-            {detail.address}
+            <div className="hidden">{detail.address}</div>
           </div>
         </div>
       </DetailCardContainer>
@@ -49,6 +56,7 @@ const DetailCardContainer = styled.div`
   height: 40px;
   border-bottom: 1px solid #c5c5c5;
   .section {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -58,10 +66,18 @@ const DetailCardContainer = styled.div`
     padding-top: 2px;
     height: 40px;
     .part {
-      text-align: center;
+      display: flex;
+      justify-content: center;
       font-size: 14px;
-      padding-top: 3px;
+      padding: 3px 3px 0px 3px;
       height: 20px;
+      overflow: hidden;
+      .hidden {
+        width: 220px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
     .line {
       border-bottom: 1px dotted #c5c5c5;
