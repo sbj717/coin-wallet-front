@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DetailCard from './components/DetailCard';
 import DetailSearch from './components/DetailSearch';
+import Paging from './components/Paging';
 
 function Detail() {
   const [detailList, setDetailList] = useState([]);
+  const [totalPageCount, setTotalPageCount] = useState('');
   const [searchWord, setSearchWord] = useState('');
   const today = new Date();
   let year =
@@ -34,6 +36,7 @@ function Detail() {
       .then(res => res.json())
       .then(res => {
         setDetailList(res.detailList);
+        setTotalPageCount(res.detailTotalPageCount[0].total_row);
       });
   }, []);
 
@@ -59,6 +62,25 @@ function Detail() {
     refreshState === 0 ? setRefreshState(1) : setRefreshState(0);
   };
 
+  const setCurrentPage = page => {
+    setPage(page);
+  };
+
+  useEffect(() => {
+    fetch(
+      `http://3.36.65.166:8000/details?search=${searchWord}&pageCount=1&startDate=${searchCondition[0]}&endDate=${searchCondition[1]}&detailType=${searchCondition[2]}&status=${onGoingCheck}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+      }
+    )
+      .then(res => res.json())
+      .then(res => {
+        setDetailList(res.detailList);
+        setTotalPageCount(res.detailTotalPageCount[0].total_row);
+      });
+  }, [onGoingCheck, searchCondition, searchWord, token, refreshState]);
+
   useEffect(() => {
     fetch(
       `http://3.36.65.166:8000/details?search=${searchWord}&pageCount=${page}&startDate=${searchCondition[0]}&endDate=${searchCondition[1]}&detailType=${searchCondition[2]}&status=${onGoingCheck}`,
@@ -70,8 +92,11 @@ function Detail() {
       .then(res => res.json())
       .then(res => {
         setDetailList(res.detailList);
+        setTotalPageCount(res.detailTotalPageCount[0].total_row);
       });
+  }, [page]);
 
+  useEffect(() => {
     fetch(
       `http://3.36.65.166:8000/details?search=${searchWord}&startDate=${searchCondition[0]}&endDate=${searchCondition[1]}&detailType=${searchCondition[2]}&status=${onGoingCheck}`,
       {
@@ -82,6 +107,7 @@ function Detail() {
       .then(res => res.json())
       .then(res => {
         setJsonForCSV(res.detailList);
+        setTotalPageCount(res.detailTotalPageCount[0].total_row);
       });
   }, [onGoingCheck, searchCondition, searchWord, token, refreshState]);
 
@@ -116,6 +142,7 @@ function Detail() {
               ))}
             </TableBody>
           </DetailTable>
+          <Paging count={totalPageCount} sendCurrentPage={setCurrentPage} />
         </DetailArticle>
       </DetailContainer>
     </DetailWrapper>
@@ -146,7 +173,8 @@ const DetailTitle = styled.h3`
 const DetailArticle = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
   height: 100%;
   padding: 0px 20px;
@@ -185,6 +213,6 @@ const TableBody = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 495px;
+  height: 450px;
   overflow-y: auto;
 `;
