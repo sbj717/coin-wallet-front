@@ -16,7 +16,7 @@ function Asset({ list, sendId }) {
   };
 
   useEffect(() => {
-    if (searchWord.length === 0) {
+    if (searchList.length === 0) {
       setSearchList(list);
     }
     if (isMine === 'none') {
