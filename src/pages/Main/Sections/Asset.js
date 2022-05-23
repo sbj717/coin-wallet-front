@@ -16,7 +16,7 @@ function Asset({ list, sendId }) {
   };
 
   useEffect(() => {
-    if (newList.length === 0) {
+    if (searchList.length === 0) {
       setSearchList(list);
     }
     if (isMine === 'none') {
@@ -38,6 +38,7 @@ function Asset({ list, sendId }) {
     } else if (isMine === 'mine') {
       const newList = searchList.filter(el => el.quantity !== 0);
       setNewList(newList);
+      console.log(newList);
     }
   }, [isMine, list, searchList]);
 
@@ -57,7 +58,7 @@ function Asset({ list, sendId }) {
   };
 
   const selectCoin = id => {
-    const index = newList.findIndex(el => el.id === id);
+    const index = newList.findIndex(el => el.coins_blockchain_types_id === id);
     if (id !== coinId) {
       newList.forEach(el => {
         el.isSelected = false;
@@ -104,7 +105,11 @@ function Asset({ list, sendId }) {
           </ListHead>
           <ListBodyWrapper>
             {newList.map(coin => (
-              <CoinCard key={coin.id} coin={coin} selectCoin={selectCoin} />
+              <CoinCard
+                key={coin.coins_blockchain_types_id}
+                coin={coin}
+                selectCoin={selectCoin}
+              />
             ))}
           </ListBodyWrapper>
         </ListWrapper>

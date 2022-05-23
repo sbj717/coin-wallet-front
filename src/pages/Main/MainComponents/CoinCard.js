@@ -3,23 +3,30 @@ import styled from 'styled-components';
 
 function CoinCard({ coin, selectCoin }) {
   const coinName = coin.coin_name.split(' ');
-  const totalPrice = '₩ ' + (coin.price * coin.quantity).toLocaleString();
+  const coinQuantity = coin.quantity
+    .toLocaleString('en', { maximumSignificantDigits: 15 })
+    .slice(0, 15);
+  const totalPrice =
+    '₩ ' +
+    (coin.price * coin.quantity)
+      .toLocaleString('en', { maximumSignificantDigits: 15 })
+      .slice(0, 15);
 
   return (
     <CoinCardWrapper>
       <CoinCardContainer
         className={`${coin.isSelected ? 'selected' : 'none'}`}
-        onClick={() => selectCoin(coin.id)}
+        onClick={() => selectCoin(coin.coins_blockchain_types_id)}
       >
         <div style={{ width: '20%' }}>
           <span>{coinName[0]}</span>
           <span>{coinName[1]}</span>
         </div>
         <div style={{ width: '20%' }}>
-          <span>{coin.blockchain_type}</span>
+          <span>{coin.type_name}</span>
         </div>
         <div className="number" style={{ width: '30%' }}>
-          <span>{coin.quantity}</span>
+          <span>{coinQuantity}</span>
         </div>
         <div className="number" style={{ width: '30%' }}>
           <span>{totalPrice}</span>

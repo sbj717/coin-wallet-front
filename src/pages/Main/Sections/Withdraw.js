@@ -12,7 +12,9 @@ function Withdraw({ coin }) {
   };
 
   const quantityInputHandler = e => {
-    setWdQuantity(e.target.value);
+    e.target.value.length === 0
+      ? setWdQuantity(e.target.value)
+      : setWdQuantity(Math.abs(e.target.value));
   };
 
   useEffect(() => {
@@ -21,19 +23,33 @@ function Withdraw({ coin }) {
   }, [coin.price, wdQuantity]);
 
   const withdrawCoin = () => {
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', token: token },
-      body: JSON.stringify({
-        coin_id: coin.id,
-        // blockchain_type_id: coin.blockchain_type_id,
-        deposit_address: coin.address,
-        quantity: wdQuantity,
-        // asset_id: ,
-        withdrawal_address: wdAddress,
-      }),
-    }).then(res => res.json());
+    if (
+      wdAddress.length !== 0 &&
+      wdQuantity.length !== 0 &&
+      wdQuantity !== 0 &&
+      wdQuantity <= coin.quantity
+    ) {
+      console.log(
+        coin.asset_id,
+        coin.blockchain_type_id,
+        wdAddress,
+        wdQuantity
+      );
+      fetch('http://3.36.65.166:8000/withdrawals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+        body: JSON.stringify({
+          assetId: coin.asset_id,
+          blockchainTypeId: coin.blockchain_type_id,
+          quantity: wdQuantity,
+          withdrawalAddress: wdAddress,
+        }),
+      }).then(res => res.json());
+      alert(`${wdQuantity}${coinUnit} 출금되었습니다.`);
+    }
   };
+
+  const coinUnit = coin.coin_name.split(' ')[0];
 
   return (
     <WithdrawWrapper>
@@ -49,11 +65,11 @@ function Withdraw({ coin }) {
         <WithdrawQuantity>
           <p>출금수량</p>
           <input
-            type="text"
+            type="number"
             value={wdQuantity}
             onChange={quantityInputHandler}
           />
-          <span>USDT</span>
+          <span>{coinUnit}</span>
         </WithdrawQuantity>
         <EvaluatedPrice>
           <div>
@@ -61,7 +77,7 @@ function Withdraw({ coin }) {
             <span>{evaluatedPrice}</span>
           </div>
         </EvaluatedPrice>
-        <WithdrawButton onClick={withdrawCoin}>USDT 출금</WithdrawButton>
+        <WithdrawButton onClick={withdrawCoin}>{coinUnit} 출금</WithdrawButton>
       </WithdrawContainer>
     </WithdrawWrapper>
   );
@@ -80,6 +96,7 @@ const WithdrawContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-top: 15px;
 `;
 
 const BlockchainType = styled.div`
@@ -134,6 +151,15 @@ const WithdrawQuantity = styled.div`
     height: 30px;
     border: 1px solid black;
     margin-right: 5px;
+  }
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  /* Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
   span {
     position: absolute;

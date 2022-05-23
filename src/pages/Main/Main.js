@@ -4,7 +4,7 @@ import TotalAsset from './Sections/TotalAsset';
 import Asset from './Sections/Asset';
 import Deposit from './Sections/Deposit';
 import Withdraw from './Sections/Withdraw';
-import Detail from './Sections/Detail';
+import DetailByCoin from './Sections/DetailByCoin';
 
 function Main() {
   const [isPicked, setIsPicked] = useState(['picked', 'none', 'none']);
@@ -13,16 +13,16 @@ function Main() {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch('/data/coin_list_data.json', {
+    fetch('http://3.36.65.166:8000/assets', {
       method: 'GET',
-      Headers: { 'Content-Type': 'application/json', token: token },
+      headers: { 'Content-Type': 'application/json', access_token: token },
     })
       .then(res => res.json())
       .then(res => {
-        res.forEach(el => (el.isSelected = false));
-        setCoinList(res);
+        res.assetList.forEach(el => (el.isSelected = false));
+        setCoinList(res.assetList);
       });
-  }, [token]);
+  }, []);
 
   const goToDeposit = () => {
     setIsPicked(['picked', 'none', 'none']);
@@ -39,9 +39,11 @@ function Main() {
   const [coinName, setCoinName] = useState('');
 
   const sendId = (id, check) => {
-    const coinName = coinList.filter(el => el.id === id)[0].coin_name;
+    const coinName = coinList.filter(
+      el => el.coins_blockchain_types_id === id
+    )[0].coin_name;
     check ? setCoinName(coinName) : setCoinName('');
-    const coin = coinList.filter(el => el.id === id)[0];
+    const coin = coinList.filter(el => el.coins_blockchain_types_id === id)[0];
     check ? setSelectedCoin(coin) : setSelectedCoin({});
   };
 
@@ -73,7 +75,9 @@ function Main() {
             {isPicked[1] === 'picked' && coinName !== '' && (
               <Withdraw coin={selectedCoin} />
             )}
-            {isPicked[2] === 'picked' && coinName !== '' && <Detail />}
+            {isPicked[2] === 'picked' && coinName !== '' && (
+              <DetailByCoin coin={selectedCoin} />
+            )}
           </RightSection>
         </MainArticle>
       </MainContainer>
@@ -147,7 +151,7 @@ const RightSectionNav = styled.div`
   align-items: center;
   width: 100%;
   height: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   span {
     font-size: 16px;
     font-weight: 400;
