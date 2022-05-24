@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function DetailByCoinCard({ detail }) {
+function DetailCardByCoin({ detail }) {
   const coinQuantity = detail.quantity
     .toLocaleString('en', { maximumSignificantDigits: 15 })
     .slice(0, 12);
@@ -39,7 +39,7 @@ function DetailByCoinCard({ detail }) {
   );
 }
 
-export default DetailByCoinCard;
+export default DetailCardByCoin;
 
 const DetailCardWrapper = styled.div`
   display: flex;
