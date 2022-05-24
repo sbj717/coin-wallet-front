@@ -103,12 +103,8 @@ function Asset({ list, sendId }) {
             </div>
           </ListHead>
           <ListBodyWrapper>
-            {newList.map(coin => (
-              <CoinCard
-                key={coin.coins_blockchain_types_id}
-                coin={coin}
-                selectCoin={selectCoin}
-              />
+            {newList.map((coin, index) => (
+              <CoinCard key={index} coin={coin} selectCoin={selectCoin} />
             ))}
           </ListBodyWrapper>
         </ListWrapper>

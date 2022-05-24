@@ -8,18 +8,21 @@ function Deposit({ coin }) {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch('http://3.36.65.166:8000/assets/address', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', access_token: token },
-      body: JSON.stringify({
-        coinId: coin.coin_id,
-        coinBlockchainTypeId: coin.coins_blockchain_types_id,
-        blockchainTypeId: coin.blockchain_type_id,
-      }),
-    })
-      .then(res => res.json())
-      .then(res => setAddress(res.assetAddress[0].deposit_address));
+    if (coin.asset_id !== undefined) {
+      fetch('http://3.36.65.166:8000/assets/address', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', access_token: token },
+        body: JSON.stringify({
+          coinId: coin.coin_id,
+          coinBlockchainTypeId: coin.coins_blockchain_types_id,
+          blockchainTypeId: coin.blockchain_type_id,
+        }),
+      })
+        .then(res => res.json())
+        .then(res => setAddress(res.assetAddress[0].deposit_address));
+    }
   }, [
+    coin.asset_id,
     coin.blockchain_type_id,
     coin.coin_id,
     coin.coins_blockchain_types_id,
