@@ -160,7 +160,7 @@ const LoginBox = styled.div`
     font-size: 18px;
     width: 100%;
     height: 36px;
-    padding: 0px 5px;
+    padding: 2px 10px 0px;
     margin-bottom: 5px;
     border: 1px solid black;
     border-radius: 0px;
