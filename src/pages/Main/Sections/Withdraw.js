@@ -29,12 +29,6 @@ function Withdraw({ coin }) {
       wdQuantity !== 0 &&
       wdQuantity <= coin.quantity
     ) {
-      console.log(
-        coin.asset_id,
-        coin.blockchain_type_id,
-        wdAddress,
-        wdQuantity
-      );
       fetch('http://3.36.65.166:8000/withdrawals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', access_token: token },

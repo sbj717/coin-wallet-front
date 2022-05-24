@@ -6,7 +6,7 @@ import { GoSearch } from 'react-icons/go';
 import { FaRegListAlt } from 'react-icons/fa';
 import { IoMdRefresh } from 'react-icons/io';
 import CSVDownload from 'react-json-to-csv';
-import DetailByCoinCard from '../MainComponents/DetailByCoinCard';
+import DetailCardByCoin from '../MainComponents/DetailCardByCoin';
 
 function DetailByCoin({ coin }) {
   const [detailList, setDetailList] = useState([]);
@@ -232,7 +232,7 @@ function DetailByCoin({ coin }) {
         </DetailTableHead>
         <DetailTableBody>
           {detailList.map(detail => (
-            <DetailByCoinCard key={detail.row_id} detail={detail} />
+            <DetailCardByCoin key={detail.row_id} detail={detail} />
           ))}
         </DetailTableBody>
       </DetailContainer>

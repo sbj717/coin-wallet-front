@@ -38,7 +38,6 @@ function Asset({ list, sendId }) {
     } else if (isMine === 'mine') {
       const newList = searchList.filter(el => el.quantity !== 0);
       setNewList(newList);
-      console.log(newList);
     }
   }, [isMine, list, searchList]);
 
