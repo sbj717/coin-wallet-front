@@ -28,7 +28,7 @@ function Header() {
     navigate('/main');
   };
 
-  const goToList = () => {
+  const goToDetail = () => {
     navigate('/detail');
   };
 
@@ -47,7 +47,7 @@ function Header() {
             <button onClick={goToMain}>입출금</button>
           )}
           {userInfo.status !== 401 && (
-            <button onClick={goToList}>입출금 내역</button>
+            <button onClick={goToDetail}>입출금 내역</button>
           )}
         </LeftSide>
         <RightSide>
