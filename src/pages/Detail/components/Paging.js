@@ -13,7 +13,7 @@ function Paging({ count, sendCurrentPage }) {
       <Pagination
         activePage={page}
         itemsCountPerPage={20}
-        totalItemsCount={count}
+        totalItemsCount={Number(count)}
         pageRangeDisplayed={5}
         firstPageText="First"
         prevPageText="Prev"

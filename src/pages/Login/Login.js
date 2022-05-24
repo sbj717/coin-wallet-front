@@ -20,14 +20,10 @@ function Login() {
   };
 
   useEffect(() => {
-    idState.includes('@') && idState.includes('.')
-      ? setIsPossible('active')
-      : setIsPossible('disable');
-  }, [idState, pwState]);
-
-  useEffect(() => {
     const reg =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,100}$/;
+    idState.includes('@') &&
+    idState.includes('.') &&
     reg.test(pwState) &&
     !/(\w)\1\1/.test(pwState) &&
     pwState.search(/\s/) === -1
