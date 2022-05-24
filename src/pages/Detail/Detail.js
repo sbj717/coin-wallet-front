@@ -138,7 +138,7 @@ function Detail() {
             </TableHead>
             <TableBody>
               {detailList.map(detail => (
-                <DetailCard key={detail.id} detail={detail} />
+                <DetailCard key={detail.row_id} detail={detail} />
               ))}
             </TableBody>
           </DetailTable>
