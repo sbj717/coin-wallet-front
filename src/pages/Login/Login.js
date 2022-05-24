@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const navigate = useNavigate();
 
-  const [idState, setIdState] = useState('');
-  const [pwState, setPwState] = useState('');
+  const [idState, setIdState] = useState('testUser001@gmail.com');
+  const [pwState, setPwState] = useState('Probit123!@#');
   const [isPossible, setIsPossible] = useState('disable');
   const [idCheck, setIdCheck] = useState('none');
   const [pwCheck, setPwCheck] = useState('none');
