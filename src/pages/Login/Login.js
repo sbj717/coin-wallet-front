@@ -69,7 +69,7 @@ function Login() {
         .then(res => {
           localStorage.setItem('token', res.access_token);
           if (res.access_token !== undefined) {
-            navigate('/main');
+            navigate('/');
           } else {
             setIdCheck('none');
             setPwCheck('이메일 혹은 비밀번호가 잘못되었습니다.');

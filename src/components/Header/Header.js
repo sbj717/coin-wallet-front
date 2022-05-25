@@ -18,14 +18,22 @@ function Header() {
       });
   }, [token]);
 
+  useEffect(() => {
+    if (token === null || token === undefined) {
+      navigate('/login');
+    } else {
+      navigate('/');
+    }
+  }, [token]);
+
   const navigate = useNavigate();
 
   const goToFirst = () => {
-    token ? navigate('/main') : navigate('/');
+    token ? navigate('/') : navigate('/login');
   };
 
   const goToMain = () => {
-    navigate('/main');
+    navigate('/');
   };
 
   const goToDetail = () => {
@@ -35,7 +43,7 @@ function Header() {
   const logout = () => {
     setUserInfo('');
     localStorage.removeItem('token');
-    navigate('/');
+    navigate('/login');
   };
 
   return (

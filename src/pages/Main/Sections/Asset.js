@@ -50,6 +50,9 @@ function Asset({ list, sendId }) {
       const searchedCoin = list.filter(el =>
         el.coin_name.includes(`${searchWord.toUpperCase()}`)
       );
+      searchedCoin.forEach(el => {
+        el.isSelected = false;
+      });
       setSearchList(searchedCoin);
     } else {
       setSearchList(list);
