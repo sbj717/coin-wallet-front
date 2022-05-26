@@ -23,8 +23,11 @@ function DetailCardByCoin({ detail }) {
         <div className="section align" style={{ width: '20%' }}>
           {totalPrice}
         </div>
-        <div className="section" style={{ width: '10%' }}>
-          {detail.status}
+        <div className="section center" style={{ width: '10%' }}>
+          <span>{detail.status}</span>
+          {(detail.status === '대기' || detail.status === '진행') && (
+            <span className="cancel">취소</span>
+          )}
         </div>
         <div className="section" style={{ width: '40%' }}>
           <div className="part line" style={{ width: '100%' }}>
@@ -82,9 +85,22 @@ const DetailCardContainer = styled.div`
     .line {
       border-bottom: 1px dotted #c5c5c5;
     }
+    .cancel {
+      width: 26px;
+      height: 15px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      background-color: red;
+      padding-top: 3px;
+      cursor: pointer;
+    }
   }
   .align {
     text-align: end;
     padding-right: 10px;
+  }
+  .center {
+    align-items: center;
   }
 `;
