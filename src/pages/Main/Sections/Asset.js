@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BsSearch } from 'react-icons/bs';
 import CoinCard from '../MainComponents/CoinCard';
 
-function Asset({ list, sendId }) {
+function Asset({ list, sendId, resetSelectedCoin }) {
   const [isMine, setIsMine] = useState('none');
   const [coinId, setCoinId] = useState(0);
   const [clickValue, setClickValue] = useState(true);
@@ -46,17 +46,19 @@ function Asset({ list, sendId }) {
   };
 
   const searchCoin = () => {
+    list.forEach(el => {
+      el.isSelected = false;
+    });
     if (searchWord.length !== '') {
       const searchedCoin = list.filter(el =>
         el.coin_name.includes(`${searchWord.toUpperCase()}`)
       );
-      searchedCoin.forEach(el => {
-        el.isSelected = false;
-      });
       setSearchList(searchedCoin);
     } else {
       setSearchList(list);
     }
+    resetSelectedCoin();
+    setCoinId(0);
   };
 
   const selectCoin = id => {
