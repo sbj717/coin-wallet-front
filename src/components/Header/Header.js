@@ -19,12 +19,12 @@ function Header() {
   }, [token]);
 
   useEffect(() => {
-    if (token === null || token === undefined) {
+    if (userInfo.status === undefined || userInfo.status === 401) {
       navigate('/login');
     } else {
       navigate('/');
     }
-  }, [token]);
+  }, [userInfo]);
 
   const navigate = useNavigate();
 
@@ -59,8 +59,10 @@ function Header() {
           )}
         </LeftSide>
         <RightSide>
-          {userInfo.status !== 401 && <p>{userInfo.userEmail}</p>}
-          {userInfo.status !== 401 && (
+          {userInfo.status !== undefined && userInfo.status !== 401 && (
+            <p>{userInfo.userEmail}</p>
+          )}
+          {userInfo.status !== undefined && userInfo.status !== 401 && (
             <button onClick={logout}>
               <FiPower />
             </button>
