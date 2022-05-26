@@ -47,6 +47,11 @@ function Main() {
     check ? setSelectedCoin(coin) : setSelectedCoin({});
   };
 
+  const resetSelectedCoin = () => {
+    setCoinName('');
+    setSelectedCoin({});
+  };
+
   return (
     <MainWrapper>
       <MainContainer>
@@ -54,7 +59,11 @@ function Main() {
         <MainArticle>
           <LeftSection>
             <TotalAsset list={coinList} />
-            <Asset list={coinList} sendId={sendId} />
+            <Asset
+              list={coinList}
+              sendId={sendId}
+              resetSelectedCoin={resetSelectedCoin}
+            />
           </LeftSection>
           <RightSection>
             <SelectedCoin>{coinName}</SelectedCoin>
