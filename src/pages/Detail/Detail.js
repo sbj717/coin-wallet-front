@@ -47,15 +47,18 @@ function Detail() {
       `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
       '',
     ]);
+    setPage(1);
   };
 
   const searchByCondition = (conditions, searchWordInput) => {
     setSearchCondition(conditions);
     if (searchWordInput.length === 0) setSearchWord('');
+    setPage(1);
   };
 
   const sortOnGoing = check => {
     setOnGoingCheck(check);
+    setPage(1);
   };
 
   const refresh = () => {
@@ -142,7 +145,11 @@ function Detail() {
               ))}
             </TableBody>
           </DetailTable>
-          <Paging count={totalPageCount} sendCurrentPage={setCurrentPage} />
+          <Paging
+            count={totalPageCount}
+            firstPage={page}
+            sendCurrentPage={setCurrentPage}
+          />
         </DetailArticle>
       </DetailContainer>
     </DetailWrapper>

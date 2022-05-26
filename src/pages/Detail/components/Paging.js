@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Pagination from 'react-js-pagination';
 
-function Paging({ count, sendCurrentPage }) {
+function Paging({ count, sendCurrentPage, firstPage }) {
   const [page, setPage] = useState(1);
   const handlePageChange = page => {
     setPage(page);
     sendCurrentPage(page);
   };
+
+  useEffect(() => {
+    setPage(firstPage);
+  }, [firstPage]);
+
   return (
     <PaginationWrapper>
       <Pagination

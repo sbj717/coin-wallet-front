@@ -40,7 +40,14 @@ function DetailSearch({
 
   const sendCoinName = () => {
     searchByCoinName(searchWordInput);
+    setStartDate(new Date(`${year}/${month}/${date}`));
+    setEndDate(
+      new Date(
+        `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
+      )
+    );
     setPickType(['none', 'none', 'picked']);
+    setDealType('');
   };
 
   const sendCondition = () => {
