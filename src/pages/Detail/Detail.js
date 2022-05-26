@@ -63,6 +63,7 @@ function Detail() {
 
   const refresh = () => {
     refreshState === 0 ? setRefreshState(1) : setRefreshState(0);
+    setPage(1);
   };
 
   const setCurrentPage = page => {

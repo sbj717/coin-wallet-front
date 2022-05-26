@@ -27,7 +27,12 @@ function DetailCard({ detail }) {
         <div className="align" style={{ width: '13%' }}>
           {totalPrice}
         </div>
-        <div style={{ width: '10%' }}>{detail.status}</div>
+        <div className="center" style={{ width: '10%' }}>
+          <span>{detail.status}</span>
+          {(detail.status === '대기' || detail.status === '진행') && (
+            <span className="cancel">취소</span>
+          )}
+        </div>
         <div style={{ width: '25%' }}>
           <div className="part" style={{ width: '100%' }}>
             <p className="hidden">{detail.address}</p>
@@ -77,9 +82,22 @@ const DetailCardContainer = styled.div`
         text-overflow: ellipsis;
       }
     }
+    .cancel {
+      width: 30px;
+      height: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      background-color: red;
+      padding-top: 3px;
+      cursor: pointer;
+    }
   }
   .align {
     text-align: end;
     padding-right: 10px;
+  }
+  .center {
+    align-items: center;
   }
 `;
