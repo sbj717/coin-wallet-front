@@ -9,6 +9,7 @@ import DetailByCoin from './DetailByCoin';
 function Main() {
   const [isPicked, setIsPicked] = useState(['picked', 'none', 'none']);
   const [coinList, setCoinList] = useState([]);
+  const [coinName, setCoinName] = useState('');
   const [selectedCoin, setSelectedCoin] = useState({});
   const token = localStorage.getItem('token');
 
@@ -35,10 +36,7 @@ function Main() {
   const goToDetail = () => {
     setIsPicked(['none', 'none', 'picked']);
   };
-
-  const [coinName, setCoinName] = useState('');
-
-  const sendId = (id, check) => {
+  const setCoin = (id, check) => {
     const coinName = coinList.filter(
       el => el.coins_blockchain_types_id === id
     )[0].coin_name;
@@ -61,7 +59,7 @@ function Main() {
             <TotalAsset list={coinList} />
             <Asset
               list={coinList}
-              sendId={sendId}
+              sendId={setCoin}
               resetSelectedCoin={resetSelectedCoin}
             />
           </LeftSection>
