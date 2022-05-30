@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import DetailCard from './components/DetailCard';
-import DetailSearch from './components/DetailSearch';
-import Paging from './components/Paging';
+import DetailCard from './DetailCard';
+import DetailSearch from './DetailSearch';
+import Paging from './Paging';
 
 function Detail() {
   const [detailList, setDetailList] = useState([]);

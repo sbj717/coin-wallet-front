@@ -5,7 +5,7 @@ function Footer() {
   return (
     <FooterWrapper>
       <FooterContainer>
-        <span>© 2018-2021 PROBIT All Right Reserved</span>
+        <span>© 2022 BONGBIT All Right Reserved</span>
       </FooterContainer>
     </FooterWrapper>
   );

@@ -6,7 +6,7 @@ import { GoSearch } from 'react-icons/go';
 import { FaRegListAlt } from 'react-icons/fa';
 import { IoMdRefresh } from 'react-icons/io';
 import CSVDownload from 'react-json-to-csv';
-import DetailCardByCoin from '../MainComponents/DetailCardByCoin';
+import DetailCardByCoin from './DetailCardByCoin';
 
 function DetailByCoin({ coin }) {
   const [detailList, setDetailList] = useState([]);
@@ -33,7 +33,7 @@ function DetailByCoin({ coin }) {
   const [dealType, setDealType] = useState('');
   const [searchCondition, setSearchCondition] = useState([]);
   const [onGoing, setOnGoing] = useState('');
-  const [forCSV, setForCSV] = useState([]);
+  const [jsonForCSV, setJsonForCSV] = useState([]);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -136,7 +136,7 @@ function DetailByCoin({ coin }) {
     )
       .then(res => res.json())
       .then(res => {
-        setForCSV(res.detailList);
+        setJsonForCSV(res.detailList);
       });
   }, [coin.blockchain_type_id, coin.coin_id, searchCondition, onGoing, token]);
 
@@ -202,7 +202,7 @@ function DetailByCoin({ coin }) {
             <span>새로고침</span>
           </Refresh>
           <Download>
-            <CSVDownload className="icon" data={forCSV}>
+            <CSVDownload className="icon" data={jsonForCSV}>
               <FaRegListAlt />
             </CSVDownload>
             <span>CSV 다운로드</span>
