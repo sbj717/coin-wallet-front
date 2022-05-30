@@ -55,7 +55,7 @@ npm run start
 > - 컨벤션, 스타일 가이드
 > - 이력서 관련 세션
 
-[프로젝트 로그 보러가기(노션)](https://calico-satellite-06e.notion.site/0176a96c2ab144baa7b37f67fe48e019){:target="_blank"}
+[프로젝트 로그 보러가기(노션)](https://calico-satellite-06e.notion.site/0176a96c2ab144baa7b37f67fe48e019)
 <br/><br/><br/>
 
 ## 5. Reference
