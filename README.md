@@ -46,3 +46,7 @@ npm run start
 > - 이력서 관련 세션
 
 [프로젝트 로그 보러가기](https://calico-satellite-06e.notion.site/0176a96c2ab144baa7b37f67fe48e019)
+
+## 5. Reference
+
+이 프로젝트는 회사측으로부터 받은 개인 과제 가이드 라인을 따라 학습 목적으로 만들었습니다.
