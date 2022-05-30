@@ -50,7 +50,8 @@ function Header() {
     <HeaderWrapper>
       <HeaderContainer>
         <LeftSide>
-          <img src="images/logo.svg" alt="" onClick={goToFirst} />
+          <Banner onClick={goToFirst}>BONGBIT</Banner>
+          {/* <img src="images/logo.svg" alt="" onClick={goToFirst} /> */}
           {userInfo.status !== 401 && (
             <button onClick={goToMain}>입출금</button>
           )}
@@ -108,6 +109,18 @@ const LeftSide = styled.div`
     padding-top: 2px;
     cursor: pointer;
   }
+`;
+
+const Banner = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  font-style: italic;
+  padding: 8px 14px 5px 10px;
+  border-radius: 5px;
+  background-color: #4231c8;
+  margin-left: 20px;
+  cursor: pointer;
 `;
 
 const RightSide = styled.div`

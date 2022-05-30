@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsSearch } from 'react-icons/bs';
-import CoinCard from '../MainComponents/CoinCard';
+import CoinCard from './CoinCard';
 
 function Asset({ list, sendId, resetSelectedCoin }) {
   const [isMine, setIsMine] = useState('none');

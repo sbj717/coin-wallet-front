@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsCardChecklist } from 'react-icons/bs';
-import QRCodeCard from '../MainComponents/QRCodeCard';
+import QRCodeCard from './QRCodeCard';
 
 function Deposit({ coin }) {
   const [address, setAddress] = useState('');
