@@ -86,10 +86,10 @@ const DetailCardContainer = styled.div`
       border-bottom: 1px dotted #c5c5c5;
     }
     .cancel {
-      width: 26px;
+      width: 24px;
       height: 15px;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 400;
       color: white;
       background-color: red;
       padding-top: 3px;

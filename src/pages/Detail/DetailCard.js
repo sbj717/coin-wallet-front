@@ -83,10 +83,11 @@ const DetailCardContainer = styled.div`
       }
     }
     .cancel {
-      width: 30px;
+      width: 26px;
       height: 16px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 400;
+      text-align: center;
       color: white;
       background-color: red;
       padding-top: 3px;

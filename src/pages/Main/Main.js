@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import TotalAsset from './Sections/TotalAsset';
-import Asset from './Sections/Asset';
-import Deposit from './Sections/Deposit';
-import Withdraw from './Sections/Withdraw';
-import DetailByCoin from './Sections/DetailByCoin';
+import TotalAsset from './TotalAsset';
+import Asset from './Asset';
+import Deposit from './Deposit';
+import Withdraw from './Withdraw';
+import DetailByCoin from './DetailByCoin';
 
 function Main() {
   const [isPicked, setIsPicked] = useState(['picked', 'none', 'none']);
