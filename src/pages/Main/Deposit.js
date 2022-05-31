@@ -90,9 +90,9 @@ const BlockchainType = styled.div`
   width: 100%;
   margin-bottom: 30px;
   span {
-    font-size: 16px;
     margin-left: 20px;
     margin-right: 50px;
+    font-size: 16px;
   }
 `;
 
@@ -104,8 +104,8 @@ const DepositAddress = styled.div`
   padding: 0px 20px;
   margin-bottom: 30px;
   span {
-    font-size: 16px;
     margin-bottom: 10px;
+    font-size: 16px;
   }
   div {
     display: flex;
@@ -113,24 +113,24 @@ const DepositAddress = styled.div`
     justify-content: flex-start;
     width: 100%;
     p {
-      font-size: 13px;
-      padding: 9px 10px 5px 10px;
       width: 85%;
       height: 30px;
-      border: 1px solid black;
+      padding: 9px 10px 5px 10px;
       margin-right: 5px;
+      border: 1px solid black;
+      font-size: 13px;
     }
     button {
       width: 15%;
       height: 30px;
+      padding-top: 2px;
+      padding-left: 12px;
       border: 0px;
       border-radius: 0px;
       background-color: #4231c8;
       color: white;
       font-size: 14px;
       text-align: center;
-      padding-top: 2px;
-      padding-left: 12px;
       letter-spacing: 5px;
       cursor: pointer;
     }
@@ -164,12 +164,12 @@ const PickNothing = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 220px;
-  font-size: 24px;
   color: #4231c8;
+  font-size: 24px;
   p {
-    font-size: 18px;
-    font-weight: 400;
     padding-top: 3px;
     padding-left: 10px;
+    font-size: 18px;
+    font-weight: 400;
   }
 `;

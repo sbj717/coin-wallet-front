@@ -107,10 +107,10 @@ const MainContainer = styled.div`
 `;
 
 const MainTitle = styled.h3`
+  padding: 20px;
+  color: #4231c8;
   font-size: 24px;
   font-weight: 700;
-  color: #4231c8;
-  padding: 20px;
 `;
 
 const MainArticle = styled.div`
@@ -142,13 +142,13 @@ const RightSection = styled.div`
 `;
 
 const SelectedCoin = styled.div`
-  font-size: 20px;
-  font-weight: 700;
   width: 100%;
   height: 50px;
   padding: 15px;
-  border: 1px solid #c5c5c5;
   margin-bottom: 20px;
+  border: 1px solid #c5c5c5;
+  font-size: 20px;
+  font-weight: 700;
 `;
 
 const RightSectionNav = styled.div`
@@ -160,20 +160,20 @@ const RightSectionNav = styled.div`
   height: 30px;
   margin-bottom: 5px;
   span {
+    width: 33.33%;
+    padding-bottom: 5px;
     font-size: 16px;
     font-weight: 400;
     text-align: center;
-    padding-bottom: 5px;
-    width: 33.33%;
     cursor: pointer;
   }
   .picked {
-    font-weight: 700;
-    color: #4231c8;
     border-bottom: 3px solid #4231c8;
+    color: #4231c8;
+    font-weight: 700;
   }
   .none {
-    color: black;
     border-bottom: 3px solid #c5c5c5;
+    color: black;
   }
 `;

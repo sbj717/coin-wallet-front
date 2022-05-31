@@ -26,8 +26,8 @@ const FooterContainer = styled.div`
   height: 24px;
   background-color: #333333;
   span {
+    color: white;
     font-size: 14px;
     font-weight: 300;
-    color: white;
   }
 `;

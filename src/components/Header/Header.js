@@ -102,9 +102,9 @@ const LeftSide = styled.div`
     cursor: pointer;
   }
   button {
-    background-color: transparent;
     padding-top: 2px;
     border: 0px;
+    background-color: transparent;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
@@ -112,14 +112,14 @@ const LeftSide = styled.div`
 `;
 
 const Banner = styled.div`
+  padding: 8px 14px 5px 10px;
+  margin-left: 20px;
+  background-color: #4231c8;
+  color: white;
   font-size: 18px;
   font-weight: 700;
-  color: white;
   font-style: italic;
-  padding: 8px 14px 5px 10px;
   border-radius: 5px;
-  background-color: #4231c8;
-  margin-left: 20px;
   cursor: pointer;
 `;
 
@@ -130,18 +130,18 @@ const RightSide = styled.div`
   align-items: center;
   width: 20%;
   p {
+    padding-top: 2px;
+    color: #4231c8;
     font-size: 16px;
     font-weight: 400;
-    color: #4231c8;
-    padding-top: 2px;
   }
   button {
-    background-color: transparent;
-    border: 0px;
-    font-size: 24px;
-    color: #4231c8;
     padding-top: 8px;
     margin-right: 20px;
+    border: 0px;
+    background-color: transparent;
+    color: #4231c8;
+    font-size: 24px;
     cursor: pointer;
   }
 `;

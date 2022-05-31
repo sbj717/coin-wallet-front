@@ -59,27 +59,27 @@ const DetailCardContainer = styled.div`
   height: 40px;
   border-bottom: 1px solid #c5c5c5;
   .section {
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
+    width: 100%;
+    height: 40px;
+    padding-top: 2px;
     font-size: 14px;
     font-weight: 400;
-    padding-top: 2px;
-    height: 40px;
+    text-align: center;
     .part {
       display: flex;
       justify-content: center;
-      font-size: 14px;
-      padding: 3px 3px 0px 3px;
       height: 20px;
+      padding: 3px 3px 0px 3px;
+      font-size: 14px;
       overflow: hidden;
       .hidden {
         width: 220px;
         text-align: center;
-        overflow: hidden;
         text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
     .line {
@@ -88,17 +88,17 @@ const DetailCardContainer = styled.div`
     .cancel {
       width: 24px;
       height: 15px;
+      padding-top: 3px;
+      background-color: red;
+      color: white;
       font-size: 11px;
       font-weight: 400;
-      color: white;
-      background-color: red;
-      padding-top: 3px;
       cursor: pointer;
     }
   }
   .align {
-    text-align: end;
     padding-right: 10px;
+    text-align: end;
   }
   .center {
     align-items: center;

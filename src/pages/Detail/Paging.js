@@ -40,18 +40,17 @@ const PaginationWrapper = styled.div`
     margin-top: 5px;
   }
   ul {
-    list-style: none;
     padding: 0;
+    list-style: none;
   }
   ul.pagination li {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 30px;
+    height: 30px;
     margin: 0px 10px;
+    border: 0px;
     font-size: 16px;
   }
   ul.pagination li:first-child {
@@ -61,17 +60,17 @@ const PaginationWrapper = styled.div`
     border-radius: 0 5px 5px 0;
   }
   ul.pagination li a {
-    text-decoration: none;
     color: black;
     font-size: 16px;
     font-weight: 400;
+    text-decoration: none;
   }
   ul.pagination li.active a {
     color: white;
   }
   ul.pagination li.active {
-    border-radius: 50%;
     padding-top: 2px;
+    border-radius: 50%;
     background-color: #4231c8;
   }
   ul.pagination li a:hover,
