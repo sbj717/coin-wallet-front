@@ -53,7 +53,7 @@ npm run start
 > 프로젝트(인턴십) 진행 로그  
 > 페이지별 관리하는 State, 사용하는 함수  
 > 컨벤션, 스타일 가이드  
-> 이력서 관련 세션
+> 이력서 관련 세션  
 
 [프로젝트 로그 보러가기(노션)](https://calico-satellite-06e.notion.site/0176a96c2ab144baa7b37f67fe48e019)
 <br/><br/><br/>
