@@ -11,12 +11,17 @@ import DetailCardByCoin from './DetailCardByCoin';
 function DetailByCoin({ coin }) {
   const [detailList, setDetailList] = useState([]);
   const today = new Date();
-  let year =
-    today.getMonth() > 1 ? today.getFullYear() : today.getFullYear() - 1;
-  let month = today.getMonth() > 1 ? today.getMonth() : today.getMonth() + 11;
-  let date = today.getDate();
+  const monthAgo = new Date(
+    today.getFullYear(),
+    today.getMonth() - 1,
+    today.getDate()
+  );
   const [startDate, setStartDate] = useState(
-    new Date(`${year}/${month}/${date}`)
+    new Date(
+      `${monthAgo.getFullYear()}/${
+        monthAgo.getMonth() + 1
+      }/${monthAgo.getDate()}`
+    )
   );
   const [endDate, setEndDate] = useState(
     new Date(
@@ -82,7 +87,13 @@ function DetailByCoin({ coin }) {
   };
 
   const resetDetail = () => {
-    setStartDate(new Date(`${year}/${month}/${date}`));
+    setStartDate(
+      new Date(
+        `${monthAgo.getFullYear()}/${
+          monthAgo.getMonth() + 1
+        }/${monthAgo.getDate()}`
+      )
+    );
     setEndDate(
       new Date(
         `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
@@ -269,15 +280,15 @@ const DetailSearch = styled.div`
 const PickDateWrapper = styled.div`
   display: flex;
   .custom {
+    width: 80px;
+    padding-top: 3px;
+    margin: 0px 5px;
+    border: 0px;
+    border-bottom: 2px solid #4231c8;
+    background-color: transparent;
     font-size: 14px;
     font-weight: 400;
-    width: 80px;
     text-align: center;
-    border: 0px;
-    background-color: transparent;
-    padding-top: 3px;
-    border-bottom: 2px solid #4231c8;
-    margin: 0px 5px;
   }
   .custom:focus {
     outline: 0px;
@@ -301,9 +312,9 @@ const SearchByDealType = styled.div`
     div {
       width: 10px;
       height: 10px;
+      margin-right: 3px;
       border: 1px solid black;
       border-radius: 5px;
-      margin-right: 3px;
       cursor: pointer;
     }
     .picked {
@@ -311,17 +322,17 @@ const SearchByDealType = styled.div`
       background-color: #4231c8;
     }
     span {
-      font-size: 14px;
-      font-weight: 400;
       padding-top: 2px;
       margin-right: 10px;
+      font-size: 14px;
+      font-weight: 400;
     }
   }
   .search {
     padding-top: 2px;
+    margin-right: 5px;
     color: gray;
     cursor: pointer;
-    margin-right: 5px;
   }
 `;
 
@@ -331,22 +342,22 @@ const Reset = styled.div`
   justify-content: flex-start;
   align-items: center;
   span {
+    padding-top: 2px;
     font-size: 16px;
     font-weight: 400;
-    padding-top: 2px;
   }
   .box {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #4231c8;
     padding: 3px 10px;
+    background-color: #4231c8;
     cursor: pointer;
     p {
+      padding-top: 2px;
+      color: white;
       font-size: 12px;
       font-weight: 600;
-      color: white;
-      padding-top: 2px;
     }
   }
 `;
@@ -366,10 +377,10 @@ const OnGoing = styled.div`
   padding-top: 2px;
   margin-right: 20px;
   div {
-    border: 1px solid black;
     width: 12px;
     height: 12px;
     margin-right: 5px;
+    border: 1px solid black;
     cursor: pointer;
   }
   span {
@@ -392,16 +403,16 @@ const Refresh = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
-    color: #4231c8;
     padding-bottom: 1px;
     margin-right: 5px;
+    color: #4231c8;
+    font-size: 16px;
     cursor: pointer;
   }
   span {
+    padding-top: 2px;
     font-size: 14px;
     font-weight: 400;
-    padding-top: 2px;
   }
 `;
 
@@ -411,17 +422,16 @@ const Download = styled.div`
   justify-content: flex-start;
   align-items: center;
   span {
+    padding-top: 2px;
     font-size: 14px;
     font-weight: 400;
-    padding-top: 2px;
   }
   .icon {
-    font-size: 16px;
-    padding-top: 3px;
+    padding: 4px 0px 0px 0px;
     margin-right: 7px;
     border: 1px;
     background-color: transparent;
-    padding: 4px 0px 0px 0px;
+    font-size: 16px;
     cursor: pointer;
   }
 `;
@@ -432,24 +442,24 @@ const DetailTableHead = styled.div`
   align-items: center;
   width: 100%;
   height: 40px;
-  background-color: #4231c8;
   border-bottom: 1px solid #c5c5c5;
+  background-color: #4231c8;
   .section {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
+    height: 40px;
+    padding-top: 2px;
+    color: white;
     font-size: 14px;
     font-weight: 500;
-    color: white;
-    padding-top: 2px;
-    height: 40px;
+    text-align: center;
     .part {
-      text-align: center;
-      font-size: 14px;
-      color: white;
-      padding-top: 3px;
       height: 20px;
+      padding-top: 3px;
+      color: white;
+      font-size: 14px;
+      text-align: center;
     }
     .line {
       border-bottom: 1px dotted #c5c5c5;

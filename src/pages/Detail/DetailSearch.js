@@ -201,26 +201,26 @@ const SearchByName = styled.div`
   align-items: center;
   position: relative;
   span {
-    font-size: 16px;
-    font-weight: 400;
     padding-top: 2px;
     margin-right: 10px;
+    font-size: 16px;
+    font-weight: 400;
   }
   input {
-    font-size: 16px;
     width: 150px;
     padding: 4px 5px 2px 5px;
     border: 0px;
     border-bottom: 2px solid #4231c8;
+    font-size: 16px;
   }
   input:focus {
     outline: 0px;
   }
   div {
+    color: gray;
     position: absolute;
     top: 6px;
     right: 3px;
-    color: gray;
     cursor: pointer;
   }
 `;
@@ -231,24 +231,24 @@ const SearchByPeriod = styled.div`
   justify-content: flex-start;
   align-items: center;
   span {
+    padding-top: 3px;
     font-size: 16px;
     font-weight: 400;
-    padding-top: 3px;
   }
 `;
 
 const PickDateWrapper = styled.div`
   display: flex;
   .custom {
+    width: 90px;
+    padding-top: 5px;
+    margin: 0px 5px;
+    border: 0px;
+    border-bottom: 2px solid #4231c8;
+    background-color: transparent;
     font-size: 16px;
     font-weight: 400;
-    width: 90px;
     text-align: center;
-    border: 0px;
-    background-color: transparent;
-    padding-top: 5px;
-    border-bottom: 2px solid #4231c8;
-    margin: 0px 5px;
   }
   .custom:focus {
     outline: 0px;
@@ -272,9 +272,9 @@ const SearchByDealType = styled.div`
     div {
       width: 12px;
       height: 12px;
+      margin-right: 5px;
       border: 1px solid black;
       border-radius: 6px;
-      margin-right: 5px;
       cursor: pointer;
     }
     .picked {
@@ -282,10 +282,10 @@ const SearchByDealType = styled.div`
       background-color: #4231c8;
     }
     span {
-      font-size: 16px;
-      font-weight: 400;
       padding-top: 2px;
       margin-right: 10px;
+      font-size: 16px;
+      font-weight: 400;
     }
   }
   .search {
@@ -301,22 +301,22 @@ const Reset = styled.div`
   justify-content: flex-start;
   align-items: center;
   span {
+    padding-top: 2px;
     font-size: 16px;
     font-weight: 400;
-    padding-top: 2px;
   }
   .box {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #4231c8;
     padding: 3px 10px;
+    background-color: #4231c8;
     cursor: pointer;
     p {
+      padding-top: 2px;
+      color: white;
       font-size: 14px;
       font-weight: 600;
-      color: white;
-      padding-top: 2px;
     }
   }
 `;
@@ -330,16 +330,16 @@ const Refresh = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
-    color: #4231c8;
     padding-bottom: 1px;
     margin-right: 5px;
+    color: #4231c8;
+    font-size: 18px;
     cursor: pointer;
   }
   span {
+    padding-top: 2px;
     font-size: 16px;
     font-weight: 400;
-    padding-top: 2px;
   }
 `;
 
@@ -349,17 +349,16 @@ const Download = styled.div`
   justify-content: flex-start;
   align-items: center;
   span {
+    padding-top: 2px;
     font-size: 16px;
     font-weight: 400;
-    padding-top: 2px;
   }
   .icon {
-    font-size: 18px;
-    padding-top: 3px;
+    padding: 4px 0px 0px 0px;
     margin-right: 7px;
     border: 1px;
     background-color: transparent;
-    padding: 4px 0px 0px 0px;
+    font-size: 18px;
     cursor: pointer;
   }
 `;
@@ -369,10 +368,10 @@ const OnGoing = styled.div`
   flex-direction: row;
   padding-top: 2px;
   div {
-    border: 1px solid black;
     width: 14px;
     height: 14px;
     margin-right: 5px;
+    border: 1px solid black;
     cursor: pointer;
   }
   span {

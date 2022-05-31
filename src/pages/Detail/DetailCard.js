@@ -65,38 +65,38 @@ const DetailCardContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-size: 15px;
     text-align: center;
     padding-top: 2px;
+    font-size: 15px;
     overflow: hidden;
     .part {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 14px;
-      padding-left: 20px;
       height: 20px;
+      padding-left: 20px;
+      font-size: 14px;
       .hidden {
         width: 250px;
-        overflow: hidden;
         text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
     .cancel {
       width: 26px;
       height: 16px;
+      padding-top: 3px;
+      background-color: red;
+      color: white;
       font-size: 12px;
       font-weight: 400;
       text-align: center;
-      color: white;
-      background-color: red;
-      padding-top: 3px;
       cursor: pointer;
     }
   }
   .align {
-    text-align: end;
     padding-right: 10px;
+    text-align: end;
   }
   .center {
     align-items: center;

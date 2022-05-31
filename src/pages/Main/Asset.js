@@ -144,8 +144,8 @@ const SearchCoinBar = styled.div`
   border-bottom: 3px solid #4231c8;
   span {
     width: 20%;
-    font-size: 14px;
     padding-top: 2px;
+    font-size: 14px;
   }
 `;
 
@@ -156,12 +156,12 @@ const SearchInputBox = styled.div`
   align-items: center;
   width: 60%;
   input {
-    font-size: 14px;
     width: 50%;
+    margin-right: 5px;
     border: 0px;
     border-bottom: 1px solid #c5c5c5;
     border-radius: 0px;
-    margin-right: 5px;
+    font-size: 14px;
   }
   input:focus {
     outline: none;
@@ -177,8 +177,8 @@ const SearchCheckBox = styled.div`
   div {
     width: 14px;
     height: 14px;
-    background-color: #4231c8;
     margin-right: 5px;
+    background-color: #4231c8;
   }
   .mine {
     border: 0px;
@@ -189,8 +189,8 @@ const SearchCheckBox = styled.div`
     background-color: white;
   }
   p {
-    font-size: 14px;
     padding-top: 2px;
+    font-size: 14px;
   }
 `;
 
@@ -202,8 +202,8 @@ const ListHead = styled.div`
   display: flex;
   flex-direction: row;
   height: 45px;
-  background-color: #f5f5f5;
   border-bottom: 1px dotted gray;
+  background-color: #f5f5f5;
   div {
     display: flex;
     justify-content: center;
@@ -211,10 +211,10 @@ const ListHead = styled.div`
     height: 42px;
     border-right: 2px solid white;
     p {
+      padding-top: 3px;
       font-size: 14px;
       font-weight: 700;
       text-align: center;
-      padding-top: 3px;
     }
   }
 `;
