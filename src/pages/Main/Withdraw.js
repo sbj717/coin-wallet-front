@@ -99,9 +99,9 @@ const BlockchainType = styled.div`
   width: 100%;
   margin-bottom: 30px;
   span {
-    font-size: 16px;
     margin-left: 20px;
     margin-right: 50px;
+    font-size: 16px;
   }
 `;
 
@@ -113,16 +113,16 @@ const WithdrawAddress = styled.div`
   padding: 0px 20px;
   margin-bottom: 30px;
   p {
-    font-size: 16px;
     margin-bottom: 10px;
+    font-size: 16px;
   }
   input {
-    font-size: 16px;
-    padding: 7px 10px 5px 10px;
     width: 100%;
     height: 30px;
-    border: 1px solid black;
+    padding: 7px 10px 5px 10px;
     margin-right: 5px;
+    border: 1px solid black;
+    font-size: 16px;
   }
 `;
 
@@ -135,16 +135,16 @@ const WithdrawQuantity = styled.div`
   margin-bottom: 10px;
   position: relative;
   p {
-    font-size: 16px;
     margin-bottom: 10px;
+    font-size: 16px;
   }
   input {
-    font-size: 16px;
-    padding: 7px 10px 5px 10px;
     width: 100%;
     height: 30px;
-    border: 1px solid black;
+    padding: 7px 10px 5px 10px;
     margin-right: 5px;
+    border: 1px solid black;
+    font-size: 16px;
   }
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
@@ -156,13 +156,13 @@ const WithdrawQuantity = styled.div`
     -moz-appearance: textfield;
   }
   span {
+    color: #4231c8;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: right;
     position: absolute;
     top: 34px;
     right: 30px;
-    font-size: 16px;
-    font-weight: 700;
-    color: #4231c8;
-    text-align: right;
   }
 `;
 
@@ -177,11 +177,11 @@ const EvaluatedPrice = styled.div`
     flex-direction: column;
     align-items: flex-start;
     width: 55%;
-    background-color: #f5f5f5;
     padding: 10px;
+    background-color: #f5f5f5;
+    color: #4231c8;
     font-size: 16px;
     font-weight: 500;
-    color: #4231c8;
     p {
       margin-bottom: 5px;
     }
@@ -191,11 +191,11 @@ const EvaluatedPrice = styled.div`
 const WithdrawButton = styled.button`
   width: 180px;
   height: 30px;
-  font-size: 16px;
-  font-family: 700;
-  color: white;
-  background-color: #4231c8;
   border: 0px;
   border-radius: 0px;
+  background-color: #4231c8;
+  color: white;
+  font-size: 16px;
+  font-family: 700;
   cursor: pointer;
 `;

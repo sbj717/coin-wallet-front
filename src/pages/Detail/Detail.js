@@ -9,12 +9,15 @@ function Detail() {
   const [totalPageCount, setTotalPageCount] = useState('');
   const [searchWord, setSearchWord] = useState('');
   const today = new Date();
-  let year =
-    today.getMonth() > 1 ? today.getFullYear() : today.getFullYear() - 1;
-  let month = today.getMonth() > 1 ? today.getMonth() : today.getMonth() + 11;
-  let date = today.getDate();
+  const monthAgo = new Date(
+    today.getFullYear(),
+    today.getMonth() - 1,
+    today.getDate()
+  );
   const [searchCondition, setSearchCondition] = useState([
-    `${year}/${month}/${date}`,
+    `${monthAgo.getFullYear()}/${
+      monthAgo.getMonth() + 1
+    }/${monthAgo.getDate()}`,
     `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
     '',
   ]);
@@ -43,7 +46,9 @@ function Detail() {
   const searchByCoinName = name => {
     setSearchWord(name);
     setSearchCondition([
-      `${year}/${month}/${date}`,
+      `${monthAgo.getFullYear()}/${
+        monthAgo.getMonth() + 1
+      }/${monthAgo.getDate()}`,
       `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
       '',
     ]);
@@ -172,10 +177,10 @@ const DetailContainer = styled.div`
 `;
 
 const DetailTitle = styled.h3`
+  padding: 20px;
+  color: #4231c8;
   font-size: 24px;
   font-weight: 700;
-  color: #4231c8;
-  padding: 20px;
 `;
 
 const DetailArticle = styled.div`
@@ -204,13 +209,13 @@ const TableHead = styled.div`
   align-items: center;
   width: 100%;
   height: 50px;
-  background-color: #f5f5f5;
   border-top: 2px solid #4231c8;
   border-bottom: 1px solid lightgray;
+  background-color: #f5f5f5;
   span {
+    padding-top: 2px;
     font-size: 16px;
     font-weight: 600;
-    padding-top: 2px;
     text-align: center;
   }
 `;

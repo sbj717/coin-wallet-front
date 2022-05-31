@@ -33,12 +33,12 @@ const TotalAssetContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 50px;
-  border: 1px solid #c5c5c5;
   padding: 0px 15px;
   margin-bottom: 20px;
+  border: 1px solid #c5c5c5;
   h3 {
-    font-size: 20px;
     padding-top: 2px;
+    font-size: 20px;
   }
   div {
     display: flex;

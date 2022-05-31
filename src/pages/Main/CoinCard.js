@@ -63,8 +63,8 @@ const CoinCardContainer = styled.div`
     height: 42px;
     border-bottom: 1px dotted gray;
     span {
-      font-size: 14px;
       padding-top: 2px;
+      font-size: 14px;
     }
   }
   .number {

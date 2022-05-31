@@ -122,13 +122,13 @@ const ToolName = styled.div`
   align-items: center;
   width: 100%;
   height: 120px;
-  background-color: #f5f5f5;
   margin: 70px 0px;
+  background-color: #f5f5f5;
   h2 {
+    padding-top: 2px;
+    color: #4231c8;
     font-size: 28px;
     font-weight: 700;
-    color: #4231c8;
-    padding-top: 2px;
   }
 `;
 
@@ -140,46 +140,46 @@ const LoginBox = styled.div`
   width: 280px;
   margin-bottom: 70px;
   h3 {
+    margin-bottom: 30px;
+    color: #4231c8;
     font-size: 24px;
     letter-spacing: 5px;
-    color: #4231c8;
-    margin-bottom: 30px;
   }
   span {
-    font-size: 18px;
-    font-weight: 400;
     width: 100%;
     padding-left: 5px;
     margin: 5px 0px;
+    font-size: 18px;
+    font-weight: 400;
   }
   input {
-    font-size: 18px;
     width: 100%;
     height: 36px;
     padding: 2px 10px 0px;
     margin-bottom: 5px;
     border: 1px solid black;
     border-radius: 0px;
+    font-size: 18px;
   }
   p {
-    font-size: 14px;
-    font-weight: 400;
-    color: red;
     width: 100%;
     padding: 0px 5px;
     margin-bottom: 10px;
+    color: red;
+    font-size: 14px;
+    font-weight: 400;
   }
   button {
-    font-size: 14px;
-    font-weight: 200;
-    letter-spacing: 2px;
-    color: white;
     width: 100%;
     height: 36px;
     margin-top: 28px;
-    background-color: #4231c8;
     border: 0px;
     border-radius: 0px;
+    background-color: #4231c8;
+    color: white;
+    font-size: 14px;
+    font-weight: 200;
+    letter-spacing: 2px;
     cursor: pointer;
   }
 `;
