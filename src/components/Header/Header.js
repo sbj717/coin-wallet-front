@@ -103,10 +103,10 @@ const LeftSide = styled.div`
   }
   button {
     background-color: transparent;
+    padding-top: 2px;
     border: 0px;
     font-size: 16px;
     font-weight: 500;
-    padding-top: 2px;
     cursor: pointer;
   }
 `;
